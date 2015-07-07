@@ -1,16 +1,15 @@
 // 涵括 express 函式庫
 var express=require('express');
 
+var path = require('path');
+
 // 將express模組指定到 app 變數
 var app=express();
 
 // 指定網站伺服器的埠號 3000
-var port = press.env.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
-// 使用 get 中介層函式，定義路徑及對應的處理函式。
-app.get('/',function(req,res){
- res.send('ww江西來的老師：馬芙丸');
-})
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 網站伺服器啟動，並接聽3000埠號
 app.listen(port);
