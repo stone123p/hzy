@@ -1,0 +1,14 @@
+{
+  "name": "day1",
+  "version": "0.0.1",
+  "description": "Learning project for HZY",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Chi-Ren Hwang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.1"
+  }
+}
