@@ -43,15 +43,23 @@ dynamic.html:
 ------
 習題 ex_2_1
 ------
-改寫上面javascrip:
-一. 寫一個 addImage 函式。函式的參數為:
-1. src => 圖片的網址
-2. ele => 要加入的DOM 物件。
+###改寫上面javascrip:
+#####一. 寫一個 addImage 函式。函式的參數為:
+
+######1. src => 圖片的網址
+
+######2. ele => 要加入的DOM 物件。
 ```
 var addImage = function(src, ele){
+  //使用 document.createElement()產生 img
+
+  //設定 img 的 src 屬性值
+
+  //使用appendChid 把 img 加到 ele
+
 }
 ```
-二. 在 for 迴圈中使用這個 addImage 函式。
+#####二. 在 for 迴圈中使用這個 addImage 函式。
 ------
 ## 玩玩瀏覽器的Javascript Console
 ```
