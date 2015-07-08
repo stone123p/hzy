@@ -72,8 +72,7 @@ arr.map(Math.sin);
 arr.map(function(e){return Math.sin(e).toFixed(2);});
 
 ```
-
-map.html:
+###for.html:
 ```
 <!DOCTYPE html>
 <html>
@@ -82,7 +81,32 @@ map.html:
   <title>Minions</title>
 </head>
 <body id='body'>
-  <h1>小小兵</h1>
+  <h1>小小兵 for 迴圈</h1>
+  <script>
+    var body = document.getElementById('body');
+    var images_array = ['01.jpg', 'minions.jpg', '02.jpg', '03.jpg'];
+    var showImage = function(el){
+      var img = document.createElement('img');
+      img.src = './img/' + el;
+      body.appendChild(img);
+    };
+
+    for(var i = 0; i < images_array.length; i++){
+      showImage(images_array[i]);
+    }
+  </script>
+</body>
+```
+###map.html:
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <title>Minions</title>
+</head>
+<body id='body'>
+  <h1>小小兵 map方法</h1>
   <script>
     var body = document.getElementById('body');
     var images_array = ['01.jpg', 'minions.jpg', '02.jpg', '03.jpg'];
