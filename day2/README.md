@@ -52,6 +52,18 @@ var addImage = function(src, ele){
 }
 ```
 二. 在 for 迴圈中使用這個 addImage 函式。
+------
+## 玩玩瀏覽器的Javascript Console
+```
+var arr = [];
+
+for(var i = 0; i < 360; i+= 45) arr.push(i * Math.PI / 180);
+
+arr.map(Math.sin);
+
+arr.map(function(e){return Math.sin(e).toFixed(2);});
+
+```
 
 map.html:
 ```
