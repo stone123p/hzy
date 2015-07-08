@@ -40,6 +40,19 @@ dynamic.html:
 </body>
 </html>
 ```
+------
+習題 ex_2_1
+------
+改寫上面javascrip:
+一. 寫一個 addImage 函式。函式的參數為:
+1. src => 圖片的網址
+2. ele => 要加入的DOM 物件。
+```
+var addImage = function(src, ele){
+}
+```
+二. 在 for 迴圈中使用這個 addImage 函式。
+
 map.html:
 ```
 <!DOCTYPE html>
