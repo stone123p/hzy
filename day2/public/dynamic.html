@@ -6,7 +6,7 @@
 </head>
 <body>
   <h1>小小兵</h1>
-  <img src='/img/minions.jpg'>
+  <img src='./img/minions.jpg'>
   <h2>以下由Javascript動態產生：</h2>
   <div id='dynamic' />
   <script type='text/javascript'>
@@ -14,7 +14,7 @@
     var n = 5;
     for(var i = 0; i < n; i++){
       var img = document.createElement('img');
-      img.src = '/img/minions.jpg';
+      img.src = './img/minions.jpg';
       dynamic.appendChild(img);
     }
   </script>
