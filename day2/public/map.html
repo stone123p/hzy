@@ -10,9 +10,16 @@
     var body = document.getElementById('body');
     var images_array = ['01.jpg', 'minions.jpg', '02.jpg', '03.jpg'];
     var showImage = function(el){
+      var div = document.createElement('div');
       var img = document.createElement('img');
+      var h5 = document.createElement('h5');
+      h5.innerHTML = el;
+      div.style.textAlign="center";
+      div.style.float="left";
       img.src = './img/' + el;
-      body.appendChild(img);
+      div.appendChild(img);
+      div.appendChild(h5);
+      body.appendChild(div);
     };
 
     images_array.map(showImage);
