@@ -226,7 +226,7 @@ var 元件名稱 = React.createClass(物件規格);
 
 module.exports = 元件名稱;
 ```
-#練習題4-1
+#練習題3-1
 使用 React 產生下列的元件，然後掛載到ex3-1.html的&lt;div id='app'/&gt;這個節點。
 ```
 <ol>
