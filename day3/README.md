@@ -152,3 +152,50 @@ npm run build
 ```
 npm run watch
 ```
+
+###3_03.html
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <title>React JS 3_03</title>
+</head>
+<body>
+  <a href='./index.html'>&lt;&lt;返回</a>
+  <div id='app'/>
+  <script src='./js/bundle.min.js'>
+  </script>
+</body>
+</html>
+```
+###app.js
+```
+var React = require('react');
+var Images = require('./images.js');
+var imgs = ['01.jpg', 'minions.jpg', '03.jpg', '02.jpg'];
+React.render(
+    <Images imgs={imgs} dir='./img/' />,
+    document.getElementById('app')
+);
+```
+###images.js
+```
+var React = require('react');
+
+var Images = React.createClass({
+  render: function(){
+    var dir = this.props.dir;
+    return (
+      <div class='thumbnail'>
+        {this.props.imgs.map(function(i){
+           return(
+              <img src={dir + i} />
+             );
+        })}
+      </div>
+      );
+  }
+});
+module.exports = Images;
+```
