@@ -1,7 +1,9 @@
 # Day3
 ------
 ##React.js
-
+------
+##3_1
+------
 ###index.html
 ```
 <!DOCTYPE html>
@@ -72,3 +74,46 @@ React.render(
   [function callback]    // 選用(可以不寫)：回呼函式
 )
 ```
+## 3_2
+因為我們希望瀏覽器端JavaScript應用程式的開發能夠模組化（ 將程式按照功能與需求分割到多個檔案，以方便維護）。讓瀏覽器端的開發環境與伺服器端node.js的開發環境一致，同時，希望能夠將各個模組的檔案，集中壓縮成一個Javascript檔案。所以，我們需要用到 Browserify 這個套件。
+但，為了能夠轉換JSX的程式碼，我們也需要用到 Reactify 這個套件。若要自動編譯，則需要再加入 Watchify 套件。
+
+以上的套件，是為了開發環境而安裝，程式本身並沒有引用這些套件。
+
+開發環境套件的安裝方式：
+npm install <套件名稱> --save-dev。這樣可以在安裝完套件之後，更新我們的package.json。--save-dev會更新 devDependencies屬性的內容。
+
+在這裡我們要用到的套件安裝指令：
+```
+npm install browserify envify react reactify watchify --save-dev
+```
+------
+
+除此之外，我們程式所需要涵括的相關程式庫，也必須以套件的方式安裝在我們專案的資料夾之內(node_modules)。React 所需安裝的套件如下：
+```
+npm install react flux underscore --save
+```
+------
+### package.json的修改
+JSX檔的轉換：修改package.json 讓 browserify 可以使用 reactify 來轉換 jsx 。在 package.json 加入以下的設定：
+```
+,
+"browserify": {
+  "transform": [
+    "reactify",
+    "envify"
+  ]
+}
+
+```
+script指令的修改：修改以下的script屬性
+```
+scripts:{
+  "start": "node server",
+  "build": "browserify client/app.js | uglifyjs -cm > public/js/bundle.min.js",
+  "watch": "watchify client/app.js -o public/js/bundle.min.js"
+}
+```
+------
+## 在 day3 資料夾下面新增 client 資料夾，以後用戶端程式都放在這裡。
+
