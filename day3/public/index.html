@@ -9,19 +9,7 @@
 </head>
 <body>
   <h1>React JS</h1>
-  <ol id='file_list'>
-  </ol>
-  <script>
-    var files = ['3_01.html'];
-    var ordered_list = document.getElementById('file_list');
-    files.map(function(f){
-      var list = document.createElement('li');
-      var anchor = document.createElement('a');
-      anchor.href = './' + f;
-      anchor.innerHTML = f;
-      list.appendChild(anchor);
-      ordered_list.appendChild(list);
-    });
-  </script>
+  <div id='file_list'/>
+  <script src='./js/mylinks.js'></script>
 </body>
 </html>
