@@ -15,24 +15,15 @@
 </head>
 <body>
   <h1>React JS</h1>
-  <ol id='file_list'>
-  </ol>
-  <script>
-    var files = ['3_01.html'];
-    var ordered_list = document.getElementById('file_list');
-    files.map(function(f){
-      var list = document.createElement('li');
-      var anchor = document.createElement('a');
-      anchor.href = './' + f;
-      anchor.innerHTML = f;
-      list.appendChild(anchor);
-      ordered_list.appendChild(list);
-    });
-  </script>
+  <div id='file_list'/>
+  <script src='./js/mylinks.js'></script>
 </body>
 </html>
 ```
 ------
+### js/mylinks.js
+```
+```
 ### 3_01.html
 ```
 <!DOCTYPE html>
@@ -45,8 +36,8 @@
 </head>
 <body>
   <a href='./index.html'>&lt;&lt;返回</a>
-  <div id='app'/>
   <!-- 這是html 的註解，瀏覽器不顯示  -->
+  <div id='app'/> <!-- React.js 的掛載點-->
   <!-- 下面這段是 react 的 jsx，今天的學習重點 -->
   <script type='text/jsx'>
     React.render(
