@@ -227,7 +227,7 @@ var 元件名稱 = React.createClass(物件規格);
 module.exports = 元件名稱;
 ```
 #練習題4-1
-使用 React 產生下列的元件，然後掛載到ex3-1.html的<div id='app'/>這個節點。
+使用 React 產生下列的元件，然後掛載到ex3-1.html的&lt;div id='app'/&gt;這個節點。
 ```
 <ol>
   <li><a href='./index.html'>index.html</a></li>
