@@ -144,3 +144,11 @@ React.render(
   document.getElementById('app')
 );
 ```
+##編譯Javascript:
+```
+npm run build
+```
+##自動編譯Javascript:
+```
+npm run watch
+```
