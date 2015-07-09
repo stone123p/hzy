@@ -199,3 +199,29 @@ var Images = React.createClass({
 });
 module.exports = Images;
 ```
+------
+## React.createClass()函式說明:
+```
+/*
+  功能：產生React元件的類別。參數為物件規格(Javascirpt 的物件以大括弧{成員:成員定義}表示)，規格中至少必須定義render函式。render函式一定要傳回單一 DOM 節點。此節點，可以包含其他節點。
+*/
+React.createClass(
+  object specification // 物件的規格。
+)
+
+//最基本的規格定義：
+React.createClass(
+  {
+    render: function(){ return 單一DOM節點(可以用jsx呈現);}
+  }
+);
+```
+## 模組的程式檔寫法。
+```
+var React = require('react');
+
+var 元件名稱 = React.createClass(物件規格);
+
+module.exports = 元件名稱;
+```
+
