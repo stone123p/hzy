@@ -46,6 +46,8 @@
 <body>
   <a href='./index.html'>&lt;&lt;返回</a>
   <div id='app'/>
+  <!-- 這是html 的註解，瀏覽器不顯示  -->
+  <!-- 下面這段是 react 的 jsx，今天的學習重點 -->
   <script type='text/jsx'>
     React.render(
       <h1>Hello, there!</h1>,
