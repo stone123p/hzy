@@ -60,3 +60,15 @@ files.map(function(f){
 </body>
 </html>
 ```
+------
+## React.render()函式說明:
+```
+/*
+  功能：把要呈現的React元件，掛載到指定的DOM 節點(元素)
+*/
+React.render(
+  ReactElement element,  // 要掛載的React元件(掛什麼？)
+  DOMElement container,  // 要掛載的DOM節點(掛在哪？)
+  [function callback]    // 選用(可以不寫)：回呼函式
+)
+```
