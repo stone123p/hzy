@@ -226,4 +226,34 @@ var 元件名稱 = React.createClass(物件規格);
 
 module.exports = 元件名稱;
 ```
+#練習題4-1
+使用 React 產生下列的元件，然後掛載到ex3-1.html的<div id='app'/>這個節點。
+```
+<ol>
+  <li><a href='./index.html'>index.html</a></li>
+  <li><a href='./3_01.html'>3_01.html</a></li>
+  <li><a href='./3_02.html'>3_02.html</a></li>
+  <li><a href='./3_03.html'>3_03.html</a></li>
+  <li><a href='./ex3-1.html'>ex3-1.html</a></li>
+</ol>
+```
+app.js 涵括 list.js
+```
+var List = require('./list.js');
+```
+###list.js
+```
+var React = require('react');
 
+var List = React.createClass(
+  {
+    render: function(){
+      return (
+
+      );
+    }
+  }
+);
+
+module.exports = List;
+```
