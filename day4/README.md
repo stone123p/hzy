@@ -256,3 +256,22 @@ React.render(
     <Images json='/cars' />,           //<--- json屬性指向/cars網址
     document.getElementById('app')
 );
+```
+#習題
+ex4-1. 在伺服器的public資料夾，產生一個links.json資料檔，放以下三個網站的連結。
+```
+[
+  "http://igt.com.tw",
+  "http://twisu.com.tw",
+  "http://iplus.net.tw"
+];
+```
+然後修改上面相關的程式檔，在ex4-1.html呈現以上的連結。
+
+ex4-2. 在伺服器新增一個路徑為'/mylinks'的 Middleware。此路徑會產生以下的網址：
+```
+http://google.com
+http://facebook.com
+http://apple.com
+```
+然後修改上面相關的程式檔，在ex4-2.html呈現以上的連結。
