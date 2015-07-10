@@ -12,6 +12,13 @@
 一. Closure
 Closure閉包：內崁函式，可以存取外部函式所宣告的變數。所以，碰到this的衝突時
 只要在外部函式宣告並指定this給一個變數即可，內崁函式即可存取這個變數。
+###用法：
+```
+function outer(){
+  var outer_var = this;
+  arr.map(function(){// just use outer_var...return something});
+}
+```
 ### client/images-closure.js
 ```
 var React = require('react');
@@ -36,6 +43,13 @@ module.exports = Images;
 ```
 二. Context
 Context 執行情境。陣列的map()函式，可以在第二個參數指定執行情境給第一個參數的函式，把第二個參數當成函式的this。
+###用法：
+```
+function outer(){
+  arr.map(function(){}, give_me_a_context);
+}
+// 在上面的第一個參數函式裡面，this = give_me_a_context
+```
 client/images-context.js
 ```
 var React = require('react');
@@ -63,6 +77,13 @@ var Images = React.createClass({
 ```
 三. bind()
 bind()函式綁定。透過函式綁定，可以指定一個參數作為函式的this。
+###用法：
+```
+function outer(){
+  arr.map(function(){}.bind(something));
+}
+// 在上面的參數函式裡面，this = something
+```
 client/images-bind.js
 ```
 var React = require('react');
