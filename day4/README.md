@@ -111,7 +111,8 @@ module.exports = Images;
 #為什麼要在函式內再定義函式，或是用函式當作另一個函式的參數。這樣不是很煩嗎？
 ## Javascript non-blocking
 [![ScreenShot](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://youtu.be/gPeN8uo6bG8)
-Javascript 是 non-blocking(不可阻擋我的路)的程式語言。傳統的程式語言，通常是逐一執行，碰到存取網路，硬碟之類有關io輸出入的運算時，會等到取得運算結果後，才會再執行下一行程式碼。
+
+###Javascript 是 non-blocking(不可阻擋我的路)的程式語言。傳統的程式語言，通常是逐一執行，碰到存取網路，硬碟之類有關io輸出入的運算時，會等到取得運算結果後，才會再執行下一行程式碼。
 ```
 傳統程式語言：
 a = giveMeSomethingFromSever();
