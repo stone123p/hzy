@@ -2,14 +2,14 @@ var React = require('react');
 
 var Images = React.createClass({
   render: function(){
-//    var dir = this.props.dir;
+    var dir = this.props.dir;
     return (
       <div class='thumbnail'>
         {this.props.imgs.map(function(i){
            return(
-              <img src={this.dir + i} />
+              <img src={dir + i} />
              );
-        },this.props)}
+        })}
       </div>
       );
   }

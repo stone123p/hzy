@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <title>React JS 3_01</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js'></script>
+</head>
+<body>
+  <a href='./index.html'>&lt;&lt;返回</a>
+  <!-- 這是html 的註解，瀏覽器不顯示  -->
+  <div id='app'/><!-- React.js 的掛載點-->
+  <!-- 下面這段是 react 的 jsx，今天的學習重點 -->
+  <script type='text/jsx'>
+    React.render(
+      <h1>Hello, there!</h1>,
+      document.getElementById('app')
+    );
+  </script>
+</body>
+</html>
