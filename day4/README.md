@@ -108,3 +108,19 @@ var Images = React.createClass({
 });
 module.exports = Images;
 ```
+#為什麼要在函式內再定義函式，或是用函式當作另一個函式的參數。這樣不是很煩嗎？
+## Javascript non-blocking
+[![ScreenShot](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://youtu.be/gPeN8uo6bG8)
+Javascript 是 non-blocking(不可阻擋我的路)的程式語言。傳統的程式語言，通常是逐一執行，碰到存取網路，硬碟之類有關io輸出入的運算時，會等到取得運算結果後，才會再執行下一行程式碼。
+```
+傳統程式語言：
+a = giveMeSomethingFromSever();
+// 等到上面的函式執行完畢，傳回結果後，再繼續執行下一行。
+println("I am happy to get a: " + a);
+```
+Non-Blocking 程式語言: 碰到比較慢的運算時，如：io輸出入處理函式。程式會在這些函式中允許你另外定義Callback回呼函式，當作參數。等到 io 輸出入處理函式，執行完畢之後，就會執行你的Callback回呼函式。這樣可以讓程式可以繼續處理其他的工作，不用耗在那裡等待。我先處理其他事情，有事再Call 我。
+```
+Non-Blocking 程式語言：
+giveMeSometingFromServer(function(){println("I get a on call!");});
+doSomethingElseImmediately();
+```
