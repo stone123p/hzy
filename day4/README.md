@@ -66,8 +66,6 @@ bind()函式綁定。透過函式綁定，可以指定一個參數作為函式�
 client/images-bind.js
 ```
 var React = require('react');
-```
-
 var Images = React.createClass({
   render: function(){
 //    var dir = this.props.dir;           // <--- 註解掉 dir 的變數宣告。
