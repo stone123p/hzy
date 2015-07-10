@@ -125,3 +125,134 @@ Non-Blocking 程式語言：
 giveMeSometingFromServer(function(){println("I get a on call!");});
 doSomethingElseImmediately();
 ```
+#4-1 資料以檔案的方式，傳送給瀏覽器處理。
+## 後端程式：sever.js
+```
+// server.js
+
+// 涵括 express 函式庫
+var express=require('express');
+
+//var path = require('path');
+
+// 將express模組指定到 app 變數
+var app=express();
+
+
+var imgs = [                      // <--- 定義 imgs 陣列，存放圖片的網址。
+  "./img/car01.jpg", 
+  "./img/car02.jpg", 
+  "./img/car03.jpg", 
+  "./img/car04.jpg", 
+  "./img/car05.jpg", 
+  "./img/car06.jpg" 
+];
+// 指定網站伺服器的埠號 3000
+var port = process.env.PORT || 3000;
+
+app.use(function(req, res, next){   // <--- 新增 Middleware 
+  console.log(req.url);             // 記錄存取網址
+  next();                           // 執行下一個 Middleware
+                                    // 若後端Server不須繼續處理者，就不用
+                                    // 執行 next();
+});
+
+app.get('/cars', function(req, res){ // <--- 路徑 Middleware
+  res.json(imgs);                    // imgs陣列轉成JSON格式，回應給瀏覽器
+});
+
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
+
+// 網站伺服器啟動，並接聽3000埠號
+app.listen(port);
+
+// 在 console 列印伺服器啟動的訊息。
+console.log('Running server on port:' + port);
+```
+## public/imgs.json
+```
+[
+  "./img/03.jpg", 
+  "./img/01.jpg", 
+  "./img/minions.jpg", 
+  "./img/02.jpg"
+];
+```
+## 4-01.html
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <title>React JS 4-01</title>
+  <!-- 要含括jquery函式庫來使用ajax -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+  <a href='./index.html'>&lt;&lt;返回</a>
+  <div id='app'/>
+  <script src='./js/bundle.min.js'>
+  </script>
+</body>
+</html>
+```
+## client/app.js
+```
+var React = require('react');
+var Images = require('./images.js');
+React.render(
+    <Images json='/imgs.json' />,           //<--- json屬性指向/imgs.json網址
+    document.getElementById('app')
+);
+```
+## client/images.js
+```
+var React = require('react');
+
+var Images = React.createClass({
+  getInitialState: function(){            //<--- 設定初始的state值
+    console.log('getInitialState');       // 要使用 state 必須定義此函式。
+    return {imgs: []}
+  },
+  componentDidMount: function(){          //<--- 元件掛載(初始)時執行。
+    console.log('componentDidMount');
+    $.ajax({                              //<--- 使用jquery ajax 取得
+      url: this.props.json,               // server 傳回的資料
+      dataType: 'json',
+      cache: false,
+      success: function(data){            //<--- 定義傳回成功時的回呼函式。
+        console.log('get data');
+        this.setState({imgs: data});      //<--- 使用setState()更新資料，並
+                                          // 執行 render()更新繪製元件
+      }.bind(this),                       //<--- 因為我們要使用元件的this
+                                          // 來執行setState()，所以必須bind 
+      error: function(xhr, status, err){
+        console.error(this.props.json, status, err.toString());
+      }.bind(this) 
+    });
+  },
+  render: function(){
+    return (
+      <div class='thumbnail'>
+        {this.state.imgs.map(function(i){  //<--- 把原本的props改為state
+           return(
+              <img src={i} />
+             );
+        })}
+      </div>
+      );
+  }
+});
+module.exports = Images;
+```
+#4-2 伺服器動態產生資料，傳送給瀏覽器處理。
+
+## client/app.js
+```
+var React = require('react');
+var Images = require('./images.js');
+React.render(
+    <Images json='/cars' />,           //<--- json屬性指向/cars網址
+    document.getElementById('app')
+);
