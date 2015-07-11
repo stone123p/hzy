@@ -186,24 +186,169 @@ index.html
 ##*注意：在react.js中的jsx元件的 class 必須改為 className*
 index.html
 ```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>留言板</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+  <link href='./css/nav.css' rel='stylesheet' type='text/css'/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" 
+            type="button" 
+            aria-expanded='false'
+            aria-controls='navbar'
+            data-toggle="collapse"
+            data-target="#navbar-main">
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class="navbar-brand" href='#'>留言板</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href='#'>連結1</a></li>
+            <li><a href='#'>連結2</a></li>
+            <li><a href='#'>連結3</a></li>
+            <li><a href='#'>連結4</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+    <div class="jumbotron" id='app'>
+    </div> <!-- /jumbotron -->
+    <script src='./js/app.bundle.js'></script>
+  </div><!-- /container -->
+</body>
+</html>
 ```
 app.js
 ```
+var React = require('react');
+var Board = require('./board.js');
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
 ```
 board.js
 ```
+var React = require('react');
+var Message = require('./message.js');
+
+var mockupData = [
+  {"id": "1", "author": "一頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
+  {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
+  {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
+];
+var Board = React.createClass({
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        {mockupData.map(function(m){
+           return <Message message={m} />
+        })}
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
 ```
 message.js
 ```
+var React = require('react');
+var Heading = require('./heading.js');
+var Content = require('./content.js');
+var Footer = require('./footer.js');
+
+var Message = React.createClass({
+  render: function(){
+    return (
+      <div className="panel panel-default">
+        <Heading message={this.props.message} />
+        <Content message={this.props.message} />
+        <Footer message={this.props.message} />
+      </div>
+    );
+  }
+});
+
+module.exports = Message;
 ```
 heading.js
 ```
+var React = require('react');
+
+var Heading = React.createClass({
+  render: function(){
+    return (
+      <div className="panel-heading">
+        <span>
+          {this.props.message.author}
+        </span>
+        <span className='pull-right'>
+          發表於：{this.props.message.created_at}
+        </span>
+      </div>
+    );
+  }
+});
+
+module.exports = Heading;
 ```
 content.js
 ```
+var React = require('react');
+
+var Content = React.createClass({
+  render: function(){
+    return (
+      <div className="panel-body">
+        {this.props.message.content}
+      </div>
+    );
+  }
+});
+
+module.exports = Content;
 ```
 footer.js
 ```
+var React = require('react');
+
+var Footer = React.createClass({
+  render: function(){
+    return (
+      <div className='panel-footer'>
+        <div className='container-fluid'>
+          <span className='pull-right'>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-pencil'></span>修改
+            </button>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-remove'></span>刪除
+            </button>
+          </span>
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = Footer;
 ```
 # 後端程式設計師
 
