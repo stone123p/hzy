@@ -13,7 +13,7 @@ var mylinks = [                      // <--- 定義 imgs 陣列，存放圖片�
   "http://igt.com.tw",
   "http://twisu.com.tw",
   "http://iplus.net.tw",
-  "http;//google.com"
+  "http://google.com"
 ];
 // 指定網站伺服器的埠號 3000
 var port = process.env.PORT || 3000;
