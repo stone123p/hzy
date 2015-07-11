@@ -22,7 +22,7 @@
 ```
 {
   "id": "some id",                    // 訊息編號
-  "message": "This is a message",     // 訊息本文
+  "content": "This is a message",     // 訊息本文
   "author": "Somebody",               // 作者
   "created_at": "Date Time String"    // po 文時間
 }
@@ -162,6 +162,194 @@
 </html>
 ```
 ##2. 按照溝通修改過後的mockup，分析其DOM結構，改寫成react.js 元件。
+###2.1 mockup 結構分析
+仔細觀察 mockup.html 頁面。可以看出有一個留言板的分區，裡面有三則留言，每一則留言以 Bootstrap 的 panel 排版。Panel Heading 有作者姓名，和發表時間。Panel Body 是留言的本文。Panel Footer 則有修改和刪除這兩個按鈕。結構圖繪製如下：
+```
+Board
+  |-- Message
+         |-- Heading
+         |-- Content
+         |-- Footer
+```
+###2.2 檔案結構圖: 根據上面的結構圖，我們需要撰寫的html及 React.js檔案及之間的結構關係，繪製如下：
+```
+index.html
+  |-- app.js
+       |-- board.js
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+###2.3 撰寫檔案(靜態: 只用到this.props) 及 mockup data。
+為了能完整呈現與 mockup.html 草稿相符的畫面，同時檢驗我們的程式檔，能正確解析並呈現資料。我們要按照之前與後端程式設計師所決定好的資料交換格式，建立一組測試資料。這筆資料最好是寫在 React.js 最上層的元件。所以，我們會在 board.js 中宣告一個陣列存放這組測試資料。
+##*注意：在react.js中的jsx元件的 class 必須改為 className*
+index.html
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>留言板</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+  <link href='./css/nav.css' rel='stylesheet' type='text/css'/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" 
+            type="button" 
+            aria-expanded='false'
+            aria-controls='navbar'
+            data-toggle="collapse"
+            data-target="#navbar-main">
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class="navbar-brand" href='#'>留言板</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href='#'>連結1</a></li>
+            <li><a href='#'>連結2</a></li>
+            <li><a href='#'>連結3</a></li>
+            <li><a href='#'>連結4</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+    <div class="jumbotron" id='app'>
+    </div> <!-- /jumbotron -->
+    <script src='./js/app.bundle.js'></script>
+  </div><!-- /container -->
+</body>
+</html>
+```
+app.js
+```
+var React = require('react');
+var Board = require('./board.js');
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+board.js
+```
+var React = require('react');
+var Message = require('./message.js');
+
+var mockupData = [
+  {"id": "1", "author": "一頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
+  {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
+  {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
+];
+var Board = React.createClass({
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        {mockupData.map(function(m){
+           return <Message message={m} />
+        })}
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
+```
+message.js
+```
+var React = require('react');
+var Heading = require('./heading.js');
+var Content = require('./content.js');
+var Footer = require('./footer.js');
+
+var Message = React.createClass({
+  render: function(){
+    return (
+      <div className="panel panel-default">
+        <Heading message={this.props.message} />
+        <Content message={this.props.message} />
+        <Footer message={this.props.message} />
+      </div>
+    );
+  }
+});
+
+module.exports = Message;
+```
+heading.js
+```
+var React = require('react');
+
+var Heading = React.createClass({
+  render: function(){
+    return (
+      <div className="panel-heading">
+        <span>
+          {this.props.message.author}
+        </span>
+        <span className='pull-right'>
+          發表於：{this.props.message.created_at}
+        </span>
+      </div>
+    );
+  }
+});
+
+module.exports = Heading;
+```
+content.js
+```
+var React = require('react');
+
+var Content = React.createClass({
+  render: function(){
+    return (
+      <div className="panel-body">
+        {this.props.message.content}
+      </div>
+    );
+  }
+});
+
+module.exports = Content;
+```
+footer.js
+```
+var React = require('react');
+
+var Footer = React.createClass({
+  render: function(){
+    return (
+      <div className='panel-footer'>
+        <div className='container-fluid'>
+          <span className='pull-right'>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-pencil'></span>修改
+            </button>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-remove'></span>刪除
+            </button>
+          </span>
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = Footer;
+```
 # 後端程式設計師
 
 
