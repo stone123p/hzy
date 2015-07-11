@@ -46,11 +46,11 @@ cd hzy
 ```
 從 master 產生 dev 分支
 ```
-git branch -b dev
+git checkout -b dev
 ```
 從 dev 產生 ex4-1 功能分支
 ```
-git branch -b ex4-1
+git checkout -b ex4-1
 ```
 #### 開發程式：過程中會新增一些檔案，或更改原有的程式碼。
 將新增的檔案加入
