@@ -232,6 +232,7 @@ index.html
 </body>
 </html>
 ```
+------
 app.js
 ```
 var React = require('react');
@@ -242,6 +243,7 @@ React.render(
   document.getElementById('app')
 );
 ```
+------
 board.js
 ```
 var React = require('react');
@@ -267,6 +269,7 @@ var Board = React.createClass({
 
 module.exports = Board;
 ```
+------
 message.js
 ```
 var React = require('react');
@@ -288,6 +291,7 @@ var Message = React.createClass({
 
 module.exports = Message;
 ```
+------
 heading.js
 ```
 var React = require('react');
@@ -325,6 +329,7 @@ var Content = React.createClass({
 
 module.exports = Content;
 ```
+------
 footer.js
 ```
 var React = require('react');
