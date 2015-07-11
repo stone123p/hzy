@@ -22,7 +22,7 @@
 ```
 {
   "id": "some id",                    // 訊息編號
-  "message": "This is a message",     // 訊息本文
+  "content": "This is a message",     // 訊息本文
   "author": "Somebody",               // 作者
   "created_at": "Date Time String"    // po 文時間
 }
@@ -162,6 +162,49 @@
 </html>
 ```
 ##2. 按照溝通修改過後的mockup，分析其DOM結構，改寫成react.js 元件。
+###2.1 mockup 結構分析
+仔細觀察 mockup.html 頁面。可以看出有一個留言板的分區，裡面有三則留言，每一則留言以 Bootstrap 的 panel 排版。Panel Heading 有作者姓名，和發表時間。Panel Body 是留言的本文。Panel Footer 則有修改和刪除這兩個按鈕。結構圖繪製如下：
+```
+Board
+  |-- Message
+         |-- Heading
+         |-- Content
+         |-- Footer
+```
+###2.2 檔案結構圖: 根據上面的結構圖，我們需要撰寫的html及 React.js檔案及之間的結構關係，繪製如下：
+```
+index.html
+  |-- app.js
+       |-- board.js
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+###2.3 撰寫檔案(靜態: 只用到this.props) 及 mockup data。
+為了能完整呈現與 mockup.html 草稿相符的畫面，同時檢驗我們的程式檔，能正確解析並呈現資料。我們要按照之前與後端程式設計師所決定好的資料交換格式，建立一組測試資料。這筆資料最好是寫在 React.js 最上層的元件。所以，我們會在 board.js 中宣告一個陣列存放這組測試資料。
+##*注意：在react.js中的jsx元件的 class 必須改為 className*
+index.html
+```
+```
+app.js
+```
+```
+board.js
+```
+```
+message.js
+```
+```
+heading.js
+```
+```
+content.js
+```
+```
+footer.js
+```
+```
 # 後端程式設計師
 
 
