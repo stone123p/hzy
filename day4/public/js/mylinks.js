@@ -1,5 +1,9 @@
-var files = ['3_01.html', '3_02.html', '3_03.html', '4-01.html', '4-02.html'];
->>>>>>> day4-1
+var files = [
+  "http://igt.com.tw",
+  "http://twisu.com.tw",
+  "http://iplus.net.tw"
+];
+// day4-1
 var files_div = document.getElementById('file_list');
 var ordered_list = document.createElement('ol');
 files_div.appendChild(ordered_list);

@@ -1,6 +1,6 @@
 var React = require('react');
-var Images = require('./images.js');
+var List = require('./list.js');
 React.render(
-    <Images json='/cars' />,
+    <List json='/link.json' />,
     document.getElementById('app')
 );
