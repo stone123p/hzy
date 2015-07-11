@@ -9,13 +9,11 @@ var express=require('express');
 var app=express();
 
 
-var imgs = [                      // <--- 定義 imgs 陣列，存放圖片的網址。
-  "./img/car01.jpg", 
-  "./img/car02.jpg", 
-  "./img/car03.jpg", 
-  "./img/car04.jpg", 
-  "./img/car05.jpg", 
-  "./img/car06.jpg" 
+var mylinks = [                      // <--- 定義 imgs 陣列，存放圖片的網址。
+  "http://igt.com.tw",
+  "http://twisu.com.tw",
+  "http://iplus.net.tw",
+  "http;//google.com"
 ];
 // 指定網站伺服器的埠號 3000
 var port = process.env.PORT || 3000;
@@ -23,12 +21,10 @@ var port = process.env.PORT || 3000;
 app.use(function(req, res, next){   // <--- 新增 Middleware 
   console.log(req.url);             // 記錄存取網址
   next();                           // 執行下一個 Middleware
-                                    // 若後端Server不須繼續處理者，就不用
-                                    // 執行 next();
 });
 
-app.get('/cars', function(req, res){ // <--- 路徑 Middleware
-  res.json(imgs);                    // imgs陣列轉成JSON格式，回應給瀏覽器
+app.get('/mylinks', function(req, res){ // <--- 路徑 Middleware
+  res.json(mylinks);                    // imgs陣列轉成JSON格式，回應給瀏覽器
 });
 
 //app.use(express.static(path.join(__dirname, 'public')));
