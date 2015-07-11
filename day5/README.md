@@ -52,7 +52,7 @@ git branch -b dev
 ```
 git branch -b ex4-1
 ```
-## 開發程式：過程中會新增一些檔案，或更改原有的程式碼。
+#### 開發程式：過程中會新增一些檔案，或更改原有的程式碼。
 將新增的檔案加入
 ```
 git add new-file-1 new-file-2 new-file-3
