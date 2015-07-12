@@ -491,9 +491,7 @@ var AddMessage = React.createClass({
           <input className="form-control" type="text" placeholder="你的名字" />
           <input className="form-control" type="text" placeholder="留言的訊息" />
           <span className='pull-right'>
-            <button type='button' className='btn btn-default'>
-              <span className='glyphicon glyphicon-plus'></span>留言
-            </button>
+            <input type='Submit' value='留言' className='btn btn-default' />
           </span>
         </form>
         <br/>
@@ -631,7 +629,7 @@ var Board = React.createClass({
     return (
       <div className='board'>
         <h2>留言板</h2>
-        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
+        <SearchBar onSearchChange={this.handleSearchChange}/>                 {/*<--- 搜尋介面的元件*/}
         {this.state.messages.map(function(m){
            return <Message message={m} />
         })}
@@ -668,6 +666,141 @@ var SearchBar = React.createClass({
 });
 
 module.exports = SearchBar;
+```
+------
+### 4.2 新增留言的事件處理函式與畫面更新
+
+### 檔案結構圖：
+```
+index.html                            // 加入全域變數 new_id
+  |-- app.js                          //<--- 修改 require 的 board 檔
+       |-- board.add-message.js       //<--- 加入新增留言事件處理函式
+              |-- add-message-event.js      //<--- 加入新增留言事件處理函式
+              |-- search-bar-event.js 
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+------
+index.html 部分程式碼：
+```
+    <script>
+      var new_id = 4;    //<--- new_id 全域變數，新增留言遞增以產生獨特的編號
+      var mockupData = [
+        {"id": "1", "author": "三頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
+        {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
+        {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
+      ];
+    </script>
+```
+------
+app.js
+```
+var React = require('react');
+//var Board = require('./board.js');
+//var Board = require('./board.state.js');
+//var Board = require('./board.add-and-search.js');
+//var Board = require('./board.search-event.js');//<--- 改為有search event檔案
+var Board = require('./board.add-message.js');//<--- 改為有新增留言功能的檔案
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+------
+board.add-message.js
+```
+var React = require('react');
+var Message = require('./message.js');
+var AddMessage = require('./add-message-event.js');   //<--- 加入事件處理函式
+var SearchBar = require('./search-bar-event.js'); 
+
+var searchByContent = function(str){
+  return function(message){
+    return message.content.search(str) > -1;
+  }
+};
+
+var Board = React.createClass({
+  addMessage: function(author, content){    //<-- 加入新留言
+    var new_message = {
+      "id": new_id,
+      "author": author,
+      "content": content,
+      "created_at": Date()
+    };
+    new_id++;                               // 遞增留言的編號
+    mockupData.unshift(new_message);        // 使用unshift新增元素至陣列的前端
+    this.setState({messages: mockupData});  // 更新State
+  },
+  handleSearchChange: function(str){
+    this.setState({
+      messages: mockupData.filter(searchByContent(str))
+    });
+  },
+  getInitialState: function(){
+    return {messages: []};
+  },
+
+  componentDidMount: function(){            
+    this.setState({messages: mockupData});  
+  },
+
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
+        {this.state.messages.map(function(m){
+           return <Message message={m} />
+        })}
+        <AddMessage onAdd={this.addMessage}/>        {/*<--- 指定事件處理函式*/}
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
+```
+------
+add-message-event.js
+```
+var React = require('react');
+
+var AddMessage = React.createClass({
+  handleSubmit: function(e){              //<--- 處理送出表單的事件處理函式
+    e.preventDefault();
+    var author_node = React.findDOMNode(this.refs.author);
+    var content_node = React.findDOMNode(this.refs.content);
+    var author = author_node.value.trim();
+    var content = content_node.value.trim();
+    if(!content || !author){
+      return;
+    }
+    author_node.value = content_node.value = '';
+    this.props.onAdd(author, content);  // 呼叫上一層的元件來加入新留言
+
+  },
+  render: function(){
+    return (
+      <div className='container-fluid'>
+        <h3>新增留言</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input ref="author" className="form-control" type="text" placeholder="你的名字" /> {/* 加入 ref */}
+          <input ref="content" className="form-control" type="text" placeholder="留言的訊息" /> {/* 加入 ref */}
+          <span className='pull-right'>
+            <input type='Submit' value='留言' className='btn btn-default' />
+          </span>
+        </form>
+        <br/>
+      </div>
+    );
+  }
+});
+
+module.exports = AddMessage;
 ```
 ------
 # 後端程式設計師
