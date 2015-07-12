@@ -446,6 +446,12 @@ var Message = require('./message.js');
 var AddMessage = require('./add-message.js'); //<--- 加入新增留言的元件檔
 var SearchBar = require('./search-bar.js');   //<--- 加入搜尋的元件檔
 
+var searchByContent = function(str){
+  return function(message){
+    return message.content.search(str) > -1;
+  }
+};
+
 var Board = React.createClass({
   getInitialState: function(){
     return {messages: []};
@@ -459,11 +465,11 @@ var Board = React.createClass({
     return (
       <div className='board'>
         <h2>留言板</h2>
-        <SearchBar />                           //<--- 搜尋介面的元件
+        <SearchBar />                           {/*<--- 搜尋介面的元件*/}
         {this.state.messages.map(function(m){
            return <Message message={m} />
         })}
-        <AddMessage />                          //<--- 新增留言介面的元件
+        <AddMessage />                          {/*<--- 新增留言介面的元件*/}
       </div>
     );
   }
@@ -508,7 +514,9 @@ var SearchBar = React.createClass({
     return (
       <div className='container-fluid'>
         <form>
-          <input className="form-control" type="text" placeholder="搜尋..." />
+          <input className="form-control" 
+            type="text" placeholder="搜尋..." 
+          />
           <br/>
         </form>
       </div>
@@ -518,6 +526,150 @@ var SearchBar = React.createClass({
 
 module.exports = SearchBar;
 ```
+## 4. 操作介面的事件處理函式與畫面的更新
+在這個工作階段，定義操作介面的事件處理函式，以處理使用者操作時所引發的事件，並且更新畫面中的資料。我們先從最簡單的 Search Bar 開始，因為，這個搜尋只需在瀏覽器端搜尋即可，無需到伺服器取得資料。
+
+## *JavaScript 搜尋陣列的方法---使用陣列的filter方法*
+陣列的 filter() 方法，可以讓你定義一個函式作為參數。執行 filter()方法時，會把陣列的元素當成參數，丟給你定義的函式處理。在你定義的函式，必須傳回 true 或 false 值。然後 filter()方法，會傳回一個陣列。這個陣列只包含你定義函式傳回true值的元素。
+在瀏覽器的 console 玩一玩。
+```
+[1, 2, 3, 4, 5, 6, 7].filter(function(e) {return e % 2 === 0;});
+```
+------
+在這個專案的搜尋稍微複雜一點。因為，在搜尋時，必須提供使用者輸入的搜尋文字。而在上面的瀏覽器例子中，只有運算式，函式並提供額外的參數供我們做比較。要解決這個問題，就必須使用到在函式內在定義函式的技巧。外圍的函示接受參數，內部的函式，則以陣列的元素作參數。因為，內部的函式可以存取外圍函式所有的變數(包括外圍函式的參數)。這樣，內部的函式就可以針對外圍的參數與陣列的元素作比較，傳回true 或 false值。
+
+打開 index.html。在瀏覽器的 console 玩一玩。
+```
+var searchByContent = function(str){
+  return function(message){
+    return message.content.search(str) > -1;
+  }
+};
+
+mockupData.filter(searchByContent("啊"));
+
+```
+------
+### 4.1 搜尋的事件處理函式與畫面更新
+事件處理函式架構圖：
+```
+
+
+鄉民輸入搜尋文字  --->  SearchBar ---> Board
+                          |             |-- 在 render SearchBar標籤時，
+                          |                 定義 onSearchChange={this.handleSearchChange}
+                          |                 SearchBar可透過this.props.onSearchChange
+                          |                 將搜尋的工作丟給 Board 處理。
+                          |                 因為，Board 有 state 可以更新
+                          |                 畫面
+                          |
+                          |-- onChange 擷取文字變化的事件
+                              定義SearchBar時，要定義對應
+                              的事件處理函式:
+                              onChange={this.handleChange}
+                              但是，SearchBar沒有 messages
+                              messages 是存在於 Board。
+                              所以，必須傳給 Board處理
+
+```
+
+### 檔案結構圖：
+```
+index.html
+  |-- app.js                          //<--- 修改 require 的 board 檔
+       |-- board.search-event.js      //<--- 加入事件處理函式
+              |-- add-message.js      
+              |-- search-bar-event.js //<--- 加入事件處理函式
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+------
+app.js
+```
+var React = require('react');
+//var Board = require('./board.js');
+//var Board = require('./board.state.js');
+//var Board = require('./board.add-and-search.js');
+var Board = require('./board.search-event.js');//<--- 改為有search event檔案
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+------
+board.search-event.js
+```
+var React = require('react');
+var Message = require('./message.js');
+var AddMessage = require('./add-message.js'); //<--- 加入新增留言的元件檔
+var SearchBar = require('./search-bar-event.js');   //<--- 加入搜尋的元件檔
+
+var searchByContent = function(str){
+  return function(message){
+    return message.content.search(str) > -1;
+  }
+};
+
+var Board = React.createClass({
+  handleSearchChange: function(str){
+    this.setState({
+      messages: mockupData.filter(searchByContent(str))
+    });
+  },
+  getInitialState: function(){
+    return {messages: []};
+  },
+
+  componentDidMount: function(){            
+    this.setState({messages: mockupData});  
+  },
+
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
+        {this.state.messages.map(function(m){
+           return <Message message={m} />
+        })}
+        <AddMessage />                          {/*<--- 新增留言介面的元件*/}
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
+```
+------
+search-bar-event.js
+```
+var React = require('react');
+
+var SearchBar = React.createClass({
+  handleChange: function(e){
+    this.props.onSearchChange(e.target.value);
+  },
+  render: function(){
+    return (
+      <div className='container-fluid'>
+        <form>
+          <input className="form-control" 
+            type="text" placeholder="搜尋..." 
+            onChange={this.handleChange}
+          />
+          <br/>
+        </form>
+      </div>
+    );
+  }
+});
+
+module.exports = SearchBar;
+```
+------
 # 後端程式設計師
 
 
