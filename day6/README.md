@@ -359,7 +359,7 @@ var Footer = React.createClass({
 module.exports = Footer;
 ```
 ------
-###2.3 因為使用者可以對資料做新增，更新，刪除等操作，所以，資料必須是動態而且可能會變更的。在 React.js 會變更的資料，在最上層的元件中，以State的方式存在，所以，我們必須修改 board.js，加入元件的State，並且把 mockupData 載入到 state。檔案及之間的結構關係，繪製如下：
+###2.4 因為使用者可以對資料做新增，更新，刪除等操作，所以，資料必須是動態而且可能會變更的。在 React.js 會變更的資料，在最上層的元件中，以State的方式存在，所以，我們必須修改 board.js，加入元件的State，並且把 mockupData 載入到 state。檔案及之間的結構關係，繪製如下：
 ```
 index.html
   |-- app.js                          //<--- 修改 require 的 board 檔
@@ -389,7 +389,7 @@ var Message = require('./message.js');
 
 var Board = React.createClass({
   getInitialState: function(){              //<--- 初始化元件的 state
-    return {messages: []};                  //留言的資料為 state 的 message
+    return {messages: []};                  //留言資料為 state 的 messages
   },
 
   componentDidMount: function(){            //<--- 元件掛載後，
@@ -409,6 +409,114 @@ var Board = React.createClass({
 });
 
 module.exports = Board;
+```
+------
+##3. 留言板的新增，更新，刪除等操作介面。
+在這個工作階段中，再重新檢視之前的規劃，發覺少了一個新增留言的表單，所以，必須增加一個元件提供新增留言的表單。另外，客戶提出一個新的需求，希望可以查詢留言內容，所以，又多增加了一個元件來查詢留言。
+###3.1 檔案結構圖：
+```
+index.html
+  |-- app.js                          //<--- 修改 require 的 board 檔
+       |-- board.add-and-search.js    //<--- 修改過的 board 檔
+              |-- add-message.js      //<--- 新增留言的表單
+              |-- search-bar.js       //<--- 查詢留言
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+------
+app.js
+```
+var React = require('react');
+//var Board = require('./board.js');
+//var Board = require('./board.state.js');
+var Board = require('./board.add-and-search.js');//<--- 改為有新增與查詢的board.js
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+------
+board.add-and-search.js
+```
+var React = require('react');
+var Message = require('./message.js');
+var AddMessage = require('./add-message.js'); //<--- 加入新增留言的元件檔
+var SearchBar = require('./search-bar.js');   //<--- 加入搜尋的元件檔
+
+var Board = React.createClass({
+  getInitialState: function(){
+    return {messages: []};
+  },
+
+  componentDidMount: function(){            
+    this.setState({messages: mockupData});  
+  },
+
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        <SearchBar />                           //<--- 搜尋介面的元件
+        {this.state.messages.map(function(m){
+           return <Message message={m} />
+        })}
+        <AddMessage />                          //<--- 新增留言介面的元件
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
+```
+------
+add-message.js
+```
+var React = require('react');
+
+var AddMessage = React.createClass({
+  render: function(){
+    return (
+      <div className='container-fluid'>
+        <h3>新增留言</h3>
+        <form>
+          <input className="form-control" type="text" placeholder="你的名字" />
+          <input className="form-control" type="text" placeholder="留言的訊息" />
+          <span className='pull-right'>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-plus'></span>留言
+            </button>
+          </span>
+        </form>
+        <br/>
+      </div>
+    );
+  }
+});
+
+module.exports = AddMessage;
+```
+------
+search-bar.js
+```
+var React = require('react');
+
+var SearchBar = React.createClass({
+  render: function(){
+    return (
+      <div className='container-fluid'>
+        <form>
+          <input className="form-control" type="text" placeholder="搜尋..." />
+          <br/>
+        </form>
+      </div>
+    );
+  }
+});
+
+module.exports = SearchBar;
 ```
 # 後端程式設計師
 
