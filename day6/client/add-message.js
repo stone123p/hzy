@@ -9,9 +9,7 @@ var AddMessage = React.createClass({
           <input className="form-control" type="text" placeholder="你的名字" />
           <input className="form-control" type="text" placeholder="留言的訊息" />
           <span className='pull-right'>
-            <button type='button' className='btn btn-default'>
-              <span className='glyphicon glyphicon-plus'></span>留言
-            </button>
+            <input type='Submit' value='留言' className='btn btn-default' />
           </span>
         </form>
         <br/>

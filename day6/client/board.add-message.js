@@ -1,7 +1,7 @@
 var React = require('react');
 var Message = require('./message.js');
-var AddMessage = require('./add-message.js');   //<--- 加入新增留言的元件檔
-var SearchBar = require('./search-bar-event.js'); //<--- 加入搜尋的元件檔
+var AddMessage = require('./add-message-event.js');   //<--- 加入事件處理函式
+var SearchBar = require('./search-bar-event.js'); 
 
 var searchByContent = function(str){
   return function(message){
@@ -10,6 +10,17 @@ var searchByContent = function(str){
 };
 
 var Board = React.createClass({
+  addMessage: function(author, content){    //<-- 加入新留言
+    var new_message = {
+      "id": new_id,
+      "author": author,
+      "content": content,
+      "created_at": Date()
+    };
+    new_id++;                               // 遞增留言的編號
+    mockupData.unshift(new_message);        // 使用unshift新增元素至陣列的前端
+    this.setState({messages: mockupData});  // 更新State
+  },
   handleSearchChange: function(str){
     this.setState({
       messages: mockupData.filter(searchByContent(str))
@@ -31,7 +42,7 @@ var Board = React.createClass({
         {this.state.messages.map(function(m){
            return <Message message={m} />
         })}
-        <AddMessage />        {/*<--- 新增留言介面的元件*/}
+        <AddMessage onAdd={this.addMessage}/>        {/*<--- 指定事件處理函式*/}
       </div>
     );
   }
