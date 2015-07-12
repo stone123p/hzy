@@ -1,7 +1,7 @@
 var React = require('react');
 var Message = require('./message.js');
 var AddMessage = require('./add-message.js'); //<--- 加入新增留言的元件檔
-var SearchBar = require('./search-bar.js');   //<--- 加入搜尋的元件檔
+var SearchBar = require('./search-bar-event.js');   //<--- 加入搜尋的元件檔
 
 var searchByContent = function(str){
   return function(message){
@@ -10,6 +10,11 @@ var searchByContent = function(str){
 };
 
 var Board = React.createClass({
+  handleSearchChange: function(str){
+    this.setState({
+      messages: mockupData.filter(searchByContent(str))
+    });
+  },
   getInitialState: function(){
     return {messages: []};
   },
@@ -22,7 +27,7 @@ var Board = React.createClass({
     return (
       <div className='board'>
         <h2>留言板</h2>
-        <SearchBar />                           {/*<--- 搜尋介面的元件*/}
+        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
         {this.state.messages.map(function(m){
            return <Message message={m} />
         })}
