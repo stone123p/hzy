@@ -182,8 +182,8 @@ index.html
                     |-- footer.js 
 ```
 ###2.3 撰寫檔案(靜態: 只用到this.props) 及 mockup data。
-為了能完整呈現與 mockup.html 草稿相符的畫面，同時檢驗我們的程式檔，能正確解析並呈現資料。我們要按照之前與後端程式設計師所決定好的資料交換格式，建立一組測試資料。這筆資料最好是寫在 React.js 最上層的元件。所以，我們會在 board.js 中宣告一個陣列存放這組測試資料。
-##*注意：在react.js中的jsx元件的 class 必須改為 className*
+為了能完整呈現與 mockup.html 草稿相符的畫面，同時檢驗我們的程式檔，能正確解析並呈現資料。我們要按照之前與後端程式設計師所決定好的資料交換格式，建立一組測試資料。我們在 index.html 中，宣告一個全域變數 mockupData ，以陣列存放這組測試資料。mockup 資料寫在 index.html 的好處是，資料如果需要修改，無需重新編譯我們的程式碼。在開發的初期過程中，mockup 資料只是暫時過渡的測試資料，在後面的階段，將會改寫成從後端資料庫取回的資料。
+##*注意：在 react.js 中的 jsx 元件的 class 必須改為 className*
 index.html
 ```
 <!DOCTYPE html>
@@ -227,6 +227,13 @@ index.html
     </nav>
     <div class="jumbotron" id='app'>
     </div> <!-- /jumbotron -->
+    <script>
+      var mockupData = [
+        {"id": "1", "author": "一頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
+        {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
+        {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
+      ];
+    </script>
     <script src='./js/app.bundle.js'></script>
   </div><!-- /container -->
 </body>
@@ -249,11 +256,6 @@ board.js
 var React = require('react');
 var Message = require('./message.js');
 
-var mockupData = [
-  {"id": "1", "author": "一頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
-  {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
-  {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
-];
 var Board = React.createClass({
   render: function(){
     return (
@@ -313,6 +315,7 @@ var Heading = React.createClass({
 
 module.exports = Heading;
 ```
+------
 content.js
 ```
 var React = require('react');
@@ -354,6 +357,58 @@ var Footer = React.createClass({
 });
 
 module.exports = Footer;
+```
+------
+###2.3 因為使用者可以對資料做新增，更新，刪除等操作，所以，資料必須是動態而且可能會變更的。在 React.js 會變更的資料，在最上層的元件中，以State的方式存在，所以，我們必須修改 board.js，加入元件的State，並且把 mockupData 載入到 state。檔案及之間的結構關係，繪製如下：
+```
+index.html
+  |-- app.js                          //<--- 修改 require 的 board 檔
+       |-- board.state.js             //<--- 修改過的 board 檔
+              |-- message.js
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer.js 
+```
+------
+app.js
+```
+var React = require('react');
+//var Board = require('./board.js');
+var Board = require('./board.state.js');    //<--- 改為有state的board.js
+
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+------
+board.state.js
+```
+var React = require('react');
+var Message = require('./message.js');
+
+var Board = React.createClass({
+  getInitialState: function(){              //<--- 初始化元件的 state
+    return {messages: []};                  //留言的資料為 state 的 message
+  },
+
+  componentDidMount: function(){            //<--- 元件掛載後，
+    this.setState({messages: mockupData});  //載入mockupData到 messages陣列
+  },
+
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        {this.state.messages.map(function(m){
+           return <Message message={m} />
+        })}
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
 ```
 # 後端程式設計師
 
