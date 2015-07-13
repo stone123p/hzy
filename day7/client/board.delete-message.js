@@ -8,7 +8,7 @@ var searchByContent = function(str){
     return message.content.search(str) > -1;
   }
 };
-var getIndexWithId = function(id){ 
+var getIndexWithId = function(id){   //<--- 按照訊息編號找出該訊息的陣列索引
   return function(e){
     return e.id === id;
   };
@@ -27,9 +27,9 @@ var Board = React.createClass({
       "content": content,
       "created_at": Date()
     };
-    new_id++;                               // 遞增留言的編號
-    mockupData.unshift(new_message);        // 使用unshift新增元素至陣列的前端
-    this.setState({messages: mockupData});  // 更新State
+    new_id++;                               
+    mockupData.unshift(new_message);        
+    this.setState({messages: mockupData});  
   },
   handleSearchChange: function(str){
     this.setState({
@@ -55,7 +55,8 @@ var Board = React.createClass({
                     message={m} 
                   />
         }.bind(this))}
-        <AddMessage onAdd={this.addMessage}/>        {/*<--- 指定事件處理函式*/}
+        {/*<--- 超重要：這裡一定要 bind(this)，why??? */}
+        <AddMessage onAdd={this.addMessage}/>        
       </div>
     );
   }

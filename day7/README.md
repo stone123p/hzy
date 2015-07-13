@@ -294,9 +294,163 @@ var AddMessage = React.createClass({
 module.exports = AddMessage;
 ```
 ------
-# 後端程式設計師
+### 4.3 刪除留言的事件處理函式與畫面更新
 
+### 檔案結構圖：
+```
+index.html                            
+  |-- app.js                          //<--- 修改 require 的 board 檔
+       |-- board.delete-message.js    //<--- 加入刪除留言事件處理函式
+              |-- add-message-event.js      
+              |-- search-bar-event.js 
+              |-- message-delete.js   //<--- 加入刪除留言事件處理函式
+                    |-- heading.js
+                    |-- content.js
+                    |-- footer-delete.js //<--- 加入刪除留言事件處理函式
+```
+------
+app.js
+```
+var React = require('react');
+//var Board = require('./board.js');
+//var Board = require('./board.state.js');
+//var Board = require('./board.add-and-search.js');
+//var Board = require('./board.search-event.js');
+//var Board = require('./board.add-message.js');
+var Board = require('./board.delete-message.js');//<--- 改為刪除留言功能的檔案
 
+React.render(
+  <Board />,
+  document.getElementById('app')
+);
+```
+------
+board.delete-message.js
+```
+var React = require('react');
+var Message = require('./message-delete.js');  //<--- 加入刪除事件處理函式
+var AddMessage = require('./add-message-event.js');   
+var SearchBar = require('./search-bar-event.js'); 
+
+var searchByContent = function(str){
+  return function(message){
+    return message.content.search(str) > -1;
+  }
+};
+var getIndexWithId = function(id){   //<--- 按照訊息編號找出該訊息的陣列索引
+  return function(e){
+    return e.id === id;
+  };
+};
+
+var Board = React.createClass({
+  deleteMessage: function(id){      //<-- 刪除留言
+    var index = mockupData.findIndex(getIndexWithId(id));
+    mockupData.splice(index, 1);
+    this.setState({messages: mockupData});  // 更新State
+  },
+  addMessage: function(author, content){    
+    var new_message = {
+      "id": new_id,
+      "author": author,
+      "content": content,
+      "created_at": Date()
+    };
+    new_id++;                               
+    mockupData.unshift(new_message);        
+    this.setState({messages: mockupData});  
+  },
+  handleSearchChange: function(str){
+    this.setState({
+      messages: mockupData.filter(searchByContent(str))
+    });
+  },
+  getInitialState: function(){
+    return {messages: []};
+  },
+
+  componentDidMount: function(){            
+    this.setState({messages: mockupData});  
+  },
+
+  render: function(){
+    return (
+      <div className='board'>
+        <h2>留言板</h2>
+        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
+        {this.state.messages.map(function(m){
+           return <Message 
+                    onDeleteMessage={this.deleteMessage} 
+                    message={m} 
+                  />
+        }.bind(this))}
+        {/*<--- 超重要：這裡一定要 bind(this)，why??? */}
+        <AddMessage onAdd={this.addMessage}/>        
+      </div>
+    );
+  }
+});
+
+module.exports = Board;
+```
+------
+message-delete.js
+```
+var React = require('react');
+var Heading = require('./heading.js');
+var Content = require('./content.js');
+var Footer = require('./footer-delete.js');   //<-- 含括有刪除功能的檔案
+
+var Message = React.createClass({
+  render: function(){
+    return (
+      <div className="panel panel-default">
+        <Heading message={this.props.message} />
+        <Content message={this.props.message} />
+        <Footer message={this.props.message} 
+          onDeleteMessage={this.props.onDeleteMessage}/> 
+          {/*指定事件處理函式: 直接把父元件的函式轉定義給子元件*/}
+      </div>
+    );
+  }
+});
+
+module.exports = Message;
+```
+------
+footer-delete.js
+```
+var React = require('react');
+
+var Footer = React.createClass({
+  handleDelete: function(e){              // <--- 刪除留言的事件處理函式
+    e.preventDefault();
+    if(confirm("確定要刪除這筆留言?")){
+      this.props.onDeleteMessage(this.props.message.id);
+    }
+  },
+  render: function(){
+    return (
+      <div className='panel-footer'>
+        <div className='container-fluid'>
+          <span className='pull-right'>
+            <button type='button' className='btn btn-default'>
+              <span className='glyphicon glyphicon-pencil'></span>修改
+            </button>
+            <button type='button' className='btn btn-default'
+              onClick={this.handleDelete}>  {/* onClick指定事件處理函式*/}
+              <span className='glyphicon glyphicon-remove'></span>刪除
+            </button>
+          </span>
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = Footer;
+```
+------
 
 
 
