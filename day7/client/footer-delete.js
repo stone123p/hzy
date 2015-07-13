@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Footer = React.createClass({
-  handleDelete: function(e){
+  handleDelete: function(e){              // <--- 刪除留言的事件處理函式
     e.preventDefault();
     if(confirm("確定要刪除這筆留言?")){
       this.props.onDeleteMessage(this.props.message.id);
@@ -16,7 +16,7 @@ var Footer = React.createClass({
               <span className='glyphicon glyphicon-pencil'></span>修改
             </button>
             <button type='button' className='btn btn-default'
-              onClick={this.handleDelete}>
+              onClick={this.handleDelete}>  {/* onClick指定事件處理函式*/}
               <span className='glyphicon glyphicon-remove'></span>刪除
             </button>
           </span>
