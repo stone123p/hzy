@@ -8,11 +8,11 @@ var SearchBar = React.createClass({
   render: function(){
     return (
       <div className='container-fluid'>
-          <input className="form-control" 
-            type="text" placeholder="搜尋..." 
-            onChange={this.handleChange}
-          />
-          <br/>
+        <input className="form-control" 
+          type="text" placeholder="搜尋..." 
+          onChange={this.handleChange}
+        />
+        <br/>
       </div>
     );
   }
