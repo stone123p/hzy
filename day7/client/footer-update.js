@@ -7,7 +7,7 @@ var Footer = React.createClass({
         <div className='container-fluid'>
           <span className='pull-right'>
             <button type='button' className='btn btn-default'
-              onClick={this.props.onUpdateMessage}>
+              onClick={this.props.onUpdateMessage}>{/*<--指定事件處理函式*/}
               <span className='glyphicon glyphicon-pencil'></span>修改
             </button>
             <button type='button' className='btn btn-default'

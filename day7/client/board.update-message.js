@@ -15,15 +15,15 @@ var getIndexWithId = function(id){
 };
 
 var Board = React.createClass({
-  updateMessage: function(message){
+  updateMessage: function(message){  //<-- 更新留言
     var index = mockupData.findIndex(getIndexWithId(message.id));
     mockupData[index] = message;
-    this.setState({messages: mockupData});
+    this.setState({messages: mockupData}); // 更新State
   },
-  deleteMessage: function(id){      //<-- 刪除留言
+  deleteMessage: function(id){      
     var index = mockupData.findIndex(getIndexWithId(id));
     mockupData.splice(index, 1);
-    this.setState({messages: mockupData});  // 更新State
+    this.setState({messages: mockupData});  
   },
   addMessage: function(author, content){    
     var new_message = {
@@ -32,9 +32,9 @@ var Board = React.createClass({
       "content": content,
       "created_at": Date()
     };
-    new_id++;                               // 遞增留言的編號
-    mockupData.unshift(new_message);        // 使用unshift新增元素至陣列的前端
-    this.setState({messages: mockupData});  // 更新State
+    new_id++;                               
+    mockupData.unshift(new_message);        
+    this.setState({messages: mockupData});  
   },
   handleSearchChange: function(str){
     this.setState({
@@ -53,15 +53,15 @@ var Board = React.createClass({
     return (
       <div className='board'>
         <h2>留言板</h2>
-        <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
+        <SearchBar onSearchChange={this.handleSearchChange}/>
         {this.state.messages.map(function(m){
            return <Message 
-                    onUpdateMessage={this.updateMessage} 
                     onDeleteMessage={this.deleteMessage} 
                     message={m} 
+                    onUpdateMessage={this.updateMessage}  
                   />
         }.bind(this))}
-        <AddMessage onAdd={this.addMessage}/>        {/*<--- 指定事件處理函式*/}
+        <AddMessage onAdd={this.addMessage}/>        
       </div>
     );
   }
