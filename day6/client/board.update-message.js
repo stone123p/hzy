@@ -15,6 +15,11 @@ var getIndexWithId = function(id){
 };
 
 var Board = React.createClass({
+  updateMessage: function(message){
+    var index = mockupData.findIndex(getIndexWithId(message.id));
+    mockupData[index] = message;
+    this.setState({messages: mockupData});
+  },
   deleteMessage: function(id){      //<-- 刪除留言
     var index = mockupData.findIndex(getIndexWithId(id));
     mockupData.splice(index, 1);
@@ -51,6 +56,7 @@ var Board = React.createClass({
         <SearchBar onSearchChange={this.handleSearchChange}/>                           {/*<--- 搜尋介面的元件*/}
         {this.state.messages.map(function(m){
            return <Message 
+                    onUpdateMessage={this.updateMessage} 
                     onDeleteMessage={this.deleteMessage} 
                     message={m} 
                   />
