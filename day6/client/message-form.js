@@ -10,9 +10,17 @@ var MessageForm = React.createClass({
     if(!content || !author){
       return;
     }
-    author_node.value = content_node.value = '';
-    this.props.onAdd(author, content);  // 呼叫上一層的元件來加入新留言
-
+    
+    var message = {};
+    Object.keys(this.props.message).forEach(function(key){
+      message[key] = this.props.message[key];
+      console.log(this.props.message[key]);
+    }.bind(this));
+    //var message = this.props.message;
+    message.author = author;
+    message.content = content;
+    this.props.onUpdateMessage(message);
+    this.props.onHideForm(e);
   },
   render: function(){
     return (
@@ -26,7 +34,7 @@ var MessageForm = React.createClass({
             placeholder="留言的訊息" /> {/* 加入 ref */}
           <span className='pull-right'>
             <input type='Submit' value='更新' className='btn btn-default' />
-            <input type='Reset' value='取消' className='btn btn-default' onClick={this.props.cancelUpdate} />
+            <input type='Reset' value='取消' className='btn btn-default' onClick={this.props.onHideForm} />
           </span>
         </form>
         <br/>

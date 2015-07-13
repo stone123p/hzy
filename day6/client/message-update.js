@@ -9,9 +9,15 @@ var Message = React.createClass({
     e.preventDefault();
     this.setState({isEditing: true});
   },
-  cancelUpdate: function(e){
+  hideForm: function(e){
     e.preventDefault();
     this.setState({isEditing: false});
+  },
+  handleDelete: function(e){
+    e.preventDefault();
+    if(confirm("確定要刪除這筆留言?")){
+      this.props.onDeleteMessage(this.props.message.id);
+    }
   },
   getInitialState: function(){
     return {isEditing: false};
@@ -23,7 +29,8 @@ var Message = React.createClass({
           <div className="panel-body">
             <MessageForm 
               message={this.props.message}
-              cancelUpdate={this.cancelUpdate} />
+              onUpdateMessage = {this.props.onUpdateMessage} 
+              onHideForm={this.hideForm} />
           </div>
         </div>
       );
@@ -34,7 +41,7 @@ var Message = React.createClass({
           <Content message={this.props.message} />
           <Footer message={this.props.message} 
             onUpdateMessage={this.showEditForm}
-            onDeleteMessage={this.props.onDeleteMessage}/>
+            onDeleteMessage={this.handleDelete}/>
         </div>
       );
     }
