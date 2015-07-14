@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "browserify client/app.js > public/js/app.bundle.js",
-    "watch": "watchify client/app.js -o public/js/app.js"
+    "build": "browserify react/app.js > public/js/app.bundle.js",
+    "watch": "watchify react/app.js -o public/js/app.js"
   },
   "author": "",
   "license": "ISC",
