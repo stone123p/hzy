@@ -23,13 +23,14 @@
     "react": "^0.13.3",
     "reactify": "^1.1.1",
     "reflux": "^0.2.9",
-    "uglifyjs": "^2.4.10",
+    "uglifyify": "^3.0.1",
     "watchify": "^3.2.3"
   },
   "browserify": {
     "transform": [
       "reactify",
-      "envify"
+      "envify",
+      "uglifyify"
     ]
   }
 }
