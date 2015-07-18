@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "test",
     "start": "node server.js",
     "build": "browserify react/app.js > public/js/app.bundle.js",
     "watch": "watchify react/app.js -o public/js/app.js"
@@ -20,6 +20,7 @@
   "devDependencies": {
     "browserify": "^10.2.4",
     "envify": "^3.4.0",
+    "jest-cli": "^0.4.15",
     "react": "^0.13.3",
     "reactify": "^1.1.1",
     "reflux": "^0.2.9",
