@@ -28,9 +28,11 @@ L.marker([lat, lng])
 var drawBus = function(busData){
   busData.forEach(function(b){
     var popup = [
-      "<b>公車路線：",
-      b.RouteID,
+      "<b>",
+      b.routeName,
       "</b>",
+      "<br/>",
+      b.routeDesc,
       "<br/>車號：",
       b.BusID,
       "<br/>車速：",
@@ -43,10 +45,28 @@ var drawBus = function(busData){
       .bindPopup(popup);
   });
 };
+var getRouteData = function(busData){
+  $.get('http://ibus.tbkc.gov.tw/xmlbus/StaticData/GetRoute.xml', function(xml){ 
+    var routes = $.xml2json(xml).BusInfo.Route; 
+    busData.forEach(function(b){
+      var route = routes.find(function(r){
+        if(r.ID === b.RouteID){
+          return r;
+        }
+      });
+      if(route){
+        b.routeName = route.nameZh;
+        b.routeDesc = route.ddesc;
+      }
+    });
+    drawBus(busData); 
+  });
+};
 
 $.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function(xml){ 
   var json = $.xml2json(xml); 
-  drawBus(json.BusInfo.BusData); 
+  getRouteData(json.BusInfo.BusData);
+  //drawBus(json.BusInfo.BusData); 
 });
 
 
