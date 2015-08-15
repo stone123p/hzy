@@ -1,8 +1,10 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
 var zoom_level = 15;  // 縮放層級
-var distance = 1000;
-var school_latlng=L.latLng(lat, lng);
+
+var distance = 1000;                    //<----- 設定要過濾公車資料的距離
+
+var school_latlng=L.latLng(lat, lng);   //<----- 學校的經緯度物件
 
 var busIcon = L.icon({
     iconUrl: './imgs/bus.png',
@@ -71,9 +73,16 @@ var getRouteData = function(busData){
 $.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function(xml){ 
   var json = $.xml2json(xml); 
   var busData = json.BusInfo.BusData;
+
+  // 過濾距離在一公里內的公車資料
   var filtered_busData = busData.filter(function(bus){
+    // 將原來公車的經緯度資料，轉換成 leaflet 的經緯度物件
     var bus_latlng = L.latLng(Number(bus.Latitude), Number(bus.Longitude));
+
+    // 使用 distanceTo 方法計算距離，並記錄到每筆公車的資料內。屬性為distance
     bus.distance = Math.round(bus_latlng.distanceTo(school_latlng)); 
+
+    // 傳回(過濾)距離小於一公里的公車資料
     return bus.distance <= distance;
   });
   getRouteData(filtered_busData);
