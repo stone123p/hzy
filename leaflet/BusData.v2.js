@@ -1,6 +1,8 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
-var zoom_level = 13;  // 縮放層級
+var zoom_level = 15;  // 縮放層級
+var distance = 1000;
+var school_latlng=L.latLng(lat, lng);
 
 var busIcon = L.icon({
     iconUrl: './imgs/bus.png',
@@ -35,6 +37,9 @@ var drawBus = function(busData){
       b.routeDesc,
       "<br/>車號：",
       b.BusID,
+      "<br/>距離：",
+      b.distance,
+      "公尺",
       "<br/>車速：",
       b.Speed,
       "公里"
@@ -65,7 +70,14 @@ var getRouteData = function(busData){
 
 $.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function(xml){ 
   var json = $.xml2json(xml); 
-  getRouteData(json.BusInfo.BusData);
+  var busData = json.BusInfo.BusData;
+  var filtered_busData = busData.filter(function(bus){
+    var bus_latlng = L.latLng(Number(bus.Latitude), Number(bus.Longitude));
+    bus.distance = Math.round(bus_latlng.distanceTo(school_latlng)); 
+    return bus.distance <= distance;
+  });
+  getRouteData(filtered_busData);
+  //getRouteData(json.BusInfo.BusData);
   //drawBus(json.BusInfo.BusData); 
 });
 
