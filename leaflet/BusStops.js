@@ -3,6 +3,12 @@ var lng = 120.285095; // 緯度
 var zoom_level = 15;  // 縮放層級
 var bus_stops_url = "http://data.kaohsiung.gov.tw/Opendata/DownLoadSrc.aspx?CaseNo1=AP&CaseNo2=15&Lang=C&FolderType="
 
+var stopIcon = L.icon({
+    iconUrl: './imgs/busstop.png',
+    iconSize:     [32, 37],
+    iconAnchor:   [17, 36],
+    popupAnchor:  [-3, -26]
+});
 var school_latlng=L.latLng(lat, lng);   //<----- 學校的經緯度物件
 
 // OpenStreetMap 的 api 網址樣板
@@ -27,13 +33,18 @@ $.get(bus_stops_url, function(xml){
   var bus_stops = json.BusInfo.Stop;
   var bus_set = new Set();
   bus_stops.forEach(function(s){
-    if(!bus_set.has(s.nameZh)){
-      bus_set.add(s.nameZh);
-      var circle = L.circle([s.latitude, s.longitude], 5, {
-            color: 'blue',
-            fillColor: '#f03',
-            fillOpacity: 0.5
-      }).addTo(map).bindPopup(s.nameZh);
+    var key = s.latitude + s.longitude + s.GoBack;
+    if(!bus_set.has(key)){
+      var popup = [
+        "<b>站牌: " + s.nameZh + "</b>",
+        "路線: " + s.routeId,
+        s.GoBack === '1'? "去程": "回程" 
+      ].join('<br/>');
+      bus_set.add(key);
+      popup
+      L.marker([s.latitude, s.longitude], {icon: stopIcon})
+        .addTo(map)
+        .bindPopup(popup);
     }
   });
 });
