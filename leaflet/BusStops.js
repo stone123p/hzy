@@ -25,7 +25,8 @@ L.tileLayer(
 ).addTo(map);
 
 // 加入地點標示
-L.marker([lat, lng])
+
+var my_marker = L.marker([lat, lng])
   .addTo(map)
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
@@ -64,6 +65,7 @@ var giveMeBusStops = function(e){
     return;
   }
   bus_layer_group.clearLayers();
+  my_marker.setLatLng(e.latlng);
   bus_layers.forEach(function(bl){
     if(bl.getLatLng().distanceTo(e.latlng) < distance){
       bus_layer_group.addLayer(bl);
