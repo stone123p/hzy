@@ -3,6 +3,8 @@ var lng = 120.285095; // 緯度
 var zoom_level = 15;  // 縮放層級
 var bus_stops_url = "http://data.kaohsiung.gov.tw/Opendata/DownLoadSrc.aspx?CaseNo1=AP&CaseNo2=15&Lang=C&FolderType="
 
+var distance = 1000;                    //<----- 設定要過濾公車資料的距離
+
 var stopIcon = L.icon({
     iconUrl: './imgs/busstop.png',
     iconSize:     [32, 37],
@@ -28,10 +30,15 @@ L.marker([lat, lng])
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
 
+var bus_layer_group = L.layerGroup().addTo(map);
+var bus_layers = [];
+var data_ready = false;
+
 $.get(bus_stops_url, function(xml){ 
   var json = $.xml2json(xml); 
   var bus_stops = json.BusInfo.Stop;
   var bus_set = new Set();
+  var bus_markers;
   bus_stops.forEach(function(s){
     var key = s.latitude + s.longitude + s.GoBack;
     if(!bus_set.has(key)){
@@ -41,12 +48,27 @@ $.get(bus_stops_url, function(xml){
         s.GoBack === '1'? "去程": "回程" 
       ].join('<br/>');
       bus_set.add(key);
-      popup
-      L.marker([s.latitude, s.longitude], {icon: stopIcon})
-        .addTo(map)
-        .bindPopup(popup);
+      bus_layers.push(
+        L.marker([s.latitude, s.longitude], {icon: stopIcon})
+          .bindPopup(popup)
+      );
     }
   });
+  data_ready = true;
+  map.addEventListener('click', giveMeBusStops);
+  console.log('Data is ready');
 });
+
+var giveMeBusStops = function(e){
+  if(!data_ready){
+    return;
+  }
+  bus_layer_group.clearLayers();
+  bus_layers.forEach(function(bl){
+    if(bl.getLatLng().distanceTo(e.latlng) < distance){
+      bus_layer_group.addLayer(bl);
+    }
+  });  
+}
 
 
