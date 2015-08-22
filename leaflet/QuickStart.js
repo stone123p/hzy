@@ -19,7 +19,10 @@ L.tileLayer(
 L.marker([lat, lng])
   .addTo(map)
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
-  .openPopup();
+  .openPopup()
+  .on('click', function(e){
+    console.log(e.latlng);
+  });
 var circle = L.circle([lat, lng - 0.002], 100, {
       color: 'blue',
       fillColor: '#f03',
