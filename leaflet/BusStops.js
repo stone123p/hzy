@@ -52,6 +52,8 @@ $.get(bus_stops_url, function(xml){
       bus_layers.push(
         L.marker([s.latitude, s.longitude], {icon: stopIcon})
           .bindPopup(popup)
+          .on('mouseover', function(){openPopup();})
+          .on('mouseout', function(){closePopup();})
       );
     }
   });
