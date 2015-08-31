@@ -1,9 +1,10 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
-var zoom_level = 5;  // 縮放層級
+var zoom_level = 13;  // 縮放層級
+var nameSet = new Set();
 
-var busIcon = L.icon({
-    iconUrl: './imgs/bus.png',
+var stopIcon = L.icon({
+    iconUrl: './imgs/busStop.png',
     iconSize:     [32, 37],
     iconAnchor:   [17, 36],
     popupAnchor:  [-3, -26]
@@ -25,28 +26,24 @@ L.marker([lat, lng])
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
 
-var drawBus = function(busData){
-  busData.forEach(function(b){
-    var popup = [
-      "<b>公車路線：",
-      b.RouteID,
-      "</b>",
-      "<br/>車號：",
-      b.BusID,
-      "<br/>車速：",
-      b.Speed,
-      "公里"
-    ].join('');
+var drawStop = function(stopData){
+  stopData.forEach(function(s){
+    if(! nameSet.has(s.nameZh) && s.routeId=="紅36"){
+        var popup = [
+        "<b>",
+        s.nameZh,
+        "<br>",
+        s.GoBack,
+      ].join('');
 
-    L.marker([b.Latitude, b.Longitude], {icon: busIcon})
-      .addTo(map)
-      .bindPopup(popup);
+      L.marker([s.latitude, s.longitude], {icon: stopIcon})
+        .addTo(map)
+        .bindPopup(popup);
+    }
   });
 };
 
-$.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function(xml){ 
+$.get('./DownLoadSrc.xml', function(xml){ 
   var json = $.xml2json(xml); 
-  drawBus(json.BusInfo.BusData); 
+  drawStop(json.BusInfo.Stop); 
 });
-
-

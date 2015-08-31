@@ -1,6 +1,7 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
-var zoom_level = 15;  // 縮放層級
+
+var zoom_level = 14;  // 縮放層級
 
 var busIcon = L.icon({
     iconUrl: './imgs/bus.png',
@@ -8,6 +9,7 @@ var busIcon = L.icon({
     iconAnchor:   [17, 36],
     popupAnchor:  [-3, -26]
 });
+
 // OpenStreetMap 的 api 網址樣板
 var url_template = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
 
@@ -25,48 +27,48 @@ L.marker([lat, lng])
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
 
+var getRouteData = function(busData){
+  $.get('http://ibus.tbkc.gov.tw/xmlbus/StaticData/GetRoute.xml', function(data){
+    var json = $.xml2json(data);
+    var routeData = json.BusInfo.Route;
+    busData.forEach(function(b){
+      var route = routeData.find(function(r){
+        return r.ID == b.RouteID;
+      });
+
+      if(route){
+        b.routeName = route.nameZh;
+        b.desc = route.ddesc;
+      }
+    });
+    drawBus(busData);
+  });
+};
+
 var drawBus = function(busData){
   busData.forEach(function(b){
-    var popup = [
-      "<b>",
+    var popup =[
+      "<b>公車路線：",
       b.routeName,
-      "</b>",
-      "<br/>",
-      b.routeDesc,
+      "</b><br/>",
+      b.desc,
       "<br/>車號：",
       b.BusID,
       "<br/>車速：",
       b.Speed,
       "公里"
     ].join('');
-
+    
     L.marker([b.Latitude, b.Longitude], {icon: busIcon})
       .addTo(map)
       .bindPopup(popup);
-  });
-};
-var getRouteData = function(busData){
-  $.get('http://ibus.tbkc.gov.tw/xmlbus/StaticData/GetRoute.xml', function(xml){ 
-    var routes = $.xml2json(xml).BusInfo.Route; 
-    busData.forEach(function(b){
-      var route = routes.find(function(r){
-        if(r.ID === b.RouteID){
-          return r;
-        }
-      });
-      if(route){
-        b.routeName = route.nameZh;
-        b.routeDesc = route.ddesc;
-      }
-    });
-    drawBus(busData); 
+    
   });
 };
 
-$.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function(xml){ 
-  var json = $.xml2json(xml); 
-  getRouteData(json.BusInfo.BusData);
-  //drawBus(json.BusInfo.BusData); 
+$.get("http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml", function(data){
+  var json = $.xml2json(data);
+  var busData = json.BusInfo.BusData;
+  //drawBus(busData);
+  getRouteData(busData);
 });
-
-
