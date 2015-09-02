@@ -1,5 +1,6 @@
-var lat = 22.675067;  // 經度
-var lng = 120.285095; // 緯度
+var lat = 22.675067;  // 終點經度
+var lng = 120.285095; // 終點緯度i
+
 var zoom_level = 13;  // 縮放層級
 var nameSet = new Set();
 

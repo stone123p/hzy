@@ -6,45 +6,45 @@
   </Location>
   <UpdateTime>2014-08-11 15:18:32</UpdateTime>
   <CoordinateSystem></CoordinateSystem>
- </EssentialInfo>
- <BusInfo>
-<Stop Id="5001" routeId="0北" nameZh="金獅湖站" seqNo="1" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6658" longitude="120.322" EXTVoiceNO="05001" />
-<Stop Id="5107" routeId="0北" nameZh="金鼎路口" seqNo="2" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6644" longitude="120.3216" EXTVoiceNO="21095" />
-<Stop Id="5108" routeId="0北" nameZh="金山路口" seqNo="3" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6627" longitude="120.3217" EXTVoiceNO="05108" />
-<Stop Id="5177" routeId="0北" nameZh="鼎西里" seqNo="4" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.661" longitude="120.322" EXTVoiceNO="05109" />
-<Stop Id="5176" routeId="0北" nameZh="鼎金國小" seqNo="5" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6568" longitude="120.3213" EXTVoiceNO="05110" />
-<Stop Id="5175" routeId="0北" nameZh="鼎金國中" seqNo="6" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6548" longitude="120.3198" EXTVoiceNO="05111" />
-<Stop Id="4067" routeId="0北" nameZh="鼎山街口" seqNo="7" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6525" longitude="120.3201" EXTVoiceNO="04067" />
-<Stop Id="4068" routeId="0北" nameZh="大順二路" seqNo="8" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6507" longitude="120.3227" EXTVoiceNO="04068" />
-<Stop Id="3437" routeId="0北" nameZh="建工路口(高雄高工)" seqNo="9" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6494" longitude="120.3244" EXTVoiceNO="03437" />
-<Stop Id="1329" routeId="0北" nameZh="正興國小" seqNo="10" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.645" longitude="120.3261" EXTVoiceNO="01329" />
-<Stop Id="1330" routeId="0北" nameZh="樹德家商" seqNo="11" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6431" longitude="120.3266" EXTVoiceNO="01330" />
-<Stop Id="1331" routeId="0北" nameZh="大順陸橋" seqNo="12" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6409" longitude="120.3273" EXTVoiceNO="00303" />
-<Stop Id="1332" routeId="0北" nameZh="憲政路口" seqNo="13" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6346" longitude="120.3262" EXTVoiceNO="01332" />
-<Stop Id="0445" routeId="0北" nameZh="福德市場" seqNo="14" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.633" longitude="120.3273" EXTVoiceNO="00403" />
-<Stop Id="1334" routeId="0北" nameZh="建國一路口" seqNo="15" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6322" longitude="120.3281" EXTVoiceNO="01314" />
-<Stop Id="1343" routeId="0北" nameZh="捷運五塊厝站" seqNo="16" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.63" longitude="120.3277" EXTVoiceNO="00062" />
-<Stop Id="1335" routeId="0北" nameZh="福安路口" seqNo="17" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6281" longitude="120.3273" EXTVoiceNO="01313" />
-<Stop Id="4077" routeId="0北" nameZh="四維一路" seqNo="18" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6246" longitude="120.3257" EXTVoiceNO="04077" />
-<Stop Id="4078" routeId="0北" nameZh="凱旋醫院(民生醫院)" seqNo="19" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6241" longitude="120.3243" EXTVoiceNO="04017" />
-<Stop Id="4079" routeId="0北" nameZh="長青服務中心" seqNo="20" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.623" longitude="120.3212" EXTVoiceNO="04079" />
-<Stop Id="4080" routeId="0北" nameZh="廣東一街口" seqNo="21" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6226" longitude="120.3199" EXTVoiceNO="04080" />
-<Stop Id="4081" routeId="0北" nameZh="光華路口" seqNo="22" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6218" longitude="120.3172" EXTVoiceNO="02712" />
-<Stop Id="4082" routeId="0北" nameZh="復華中學" seqNo="23" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6206" longitude="120.3141" EXTVoiceNO="04082" />
-<Stop Id="4083" routeId="0北" nameZh="市政大樓" seqNo="24" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.62" longitude="120.3116" EXTVoiceNO="01121" />
-<Stop Id="4084" routeId="0北" nameZh="忠孝路口" seqNo="25" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6186" longitude="120.3081" EXTVoiceNO="00410" />
-<Stop Id="4085" routeId="0北" nameZh="苓雅國中" seqNo="26" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6176" longitude="120.3051" EXTVoiceNO="01216" />
-<Stop Id="4086" routeId="0北" nameZh="中華四路口" seqNo="27" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6166" longitude="120.3021" EXTVoiceNO="04086" />
-<Stop Id="4087" routeId="0北" nameZh="自強三路口" seqNo="28" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6155" longitude="120.2988" EXTVoiceNO="04087" />
-<Stop Id="1624" routeId="0北" nameZh="苓雅市場" seqNo="29" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.617" longitude="120.2968" EXTVoiceNO="01624" />
-<Stop Id="1027" routeId="0北" nameZh="漢神百貨" seqNo="30" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6191" longitude="120.2959" EXTVoiceNO="01027" />
-<Stop Id="0018" routeId="0北" nameZh="高雄女中" seqNo="31" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6206" longitude="120.2922" EXTVoiceNO="00018" />
-<Stop Id="0019" routeId="0北" nameZh="大成街口(真愛碼頭)" seqNo="32" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6212" longitude="120.2885" EXTVoiceNO="00019" />
-<Stop Id="0020" routeId="0北" nameZh="大智路口" seqNo="33" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6217" longitude="120.2874" EXTVoiceNO="00020" />
-<Stop Id="0424" routeId="0北" nameZh="大智路" seqNo="34" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6235" longitude="120.2866" EXTVoiceNO="00424" />
-<Stop Id="4002" routeId="0北" nameZh="捷運鹽埕埔站(大仁路)" seqNo="35" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6252" longitude="120.2854" EXTVoiceNO="04000" />
-<Stop Id="0544" routeId="0北" nameZh="歷史博物館(高雄國際會議中心)" seqNo="36" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6262" longitude="120.2869" EXTVoiceNO="20906" />
-<Stop Id="0545" routeId="0北" nameZh="台灣銀行" seqNo="37" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6277" longitude="120.2913" EXTVoiceNO="00545" />
+</EssentialInfo>
+<BusInfo>
+  <Stop Id="5001" routeId="0北" nameZh="金獅湖站" seqNo="1" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6658" longitude="120.322" EXTVoiceNO="05001" />
+  <Stop Id="5107" routeId="0北" nameZh="金鼎路口" seqNo="2" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6644" longitude="120.3216" EXTVoiceNO="21095" />
+  <Stop Id="5108" routeId="0北" nameZh="金山路口" seqNo="3" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6627" longitude="120.3217" EXTVoiceNO="05108" />
+  <Stop Id="5177" routeId="0北" nameZh="鼎西里" seqNo="4" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.661" longitude="120.322" EXTVoiceNO="05109" />
+  <Stop Id="5176" routeId="0北" nameZh="鼎金國小" seqNo="5" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6568" longitude="120.3213" EXTVoiceNO="05110" />
+  <Stop Id="5175" routeId="0北" nameZh="鼎金國中" seqNo="6" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6548" longitude="120.3198" EXTVoiceNO="05111" />
+  <Stop Id="4067" routeId="0北" nameZh="鼎山街口" seqNo="7" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6525" longitude="120.3201" EXTVoiceNO="04067" />
+  <Stop Id="4068" routeId="0北" nameZh="大順二路" seqNo="8" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6507" longitude="120.3227" EXTVoiceNO="04068" />
+  <Stop Id="3437" routeId="0北" nameZh="建工路口(高雄高工)" seqNo="9" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6494" longitude="120.3244" EXTVoiceNO="03437" />
+  <Stop Id="1329" routeId="0北" nameZh="正興國小" seqNo="10" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.645" longitude="120.3261" EXTVoiceNO="01329" />
+  <Stop Id="1330" routeId="0北" nameZh="樹德家商" seqNo="11" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6431" longitude="120.3266" EXTVoiceNO="01330" />
+  <Stop Id="1331" routeId="0北" nameZh="大順陸橋" seqNo="12" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6409" longitude="120.3273" EXTVoiceNO="00303" />
+  <Stop Id="1332" routeId="0北" nameZh="憲政路口" seqNo="13" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6346" longitude="120.3262" EXTVoiceNO="01332" />
+  <Stop Id="0445" routeId="0北" nameZh="福德市場" seqNo="14" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.633" longitude="120.3273" EXTVoiceNO="00403" />
+  <Stop Id="1334" routeId="0北" nameZh="建國一路口" seqNo="15" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6322" longitude="120.3281" EXTVoiceNO="01314" />
+  <Stop Id="1343" routeId="0北" nameZh="捷運五塊厝站" seqNo="16" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.63" longitude="120.3277" EXTVoiceNO="00062" />
+  <Stop Id="1335" routeId="0北" nameZh="福安路口" seqNo="17" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6281" longitude="120.3273" EXTVoiceNO="01313" />
+  <Stop Id="4077" routeId="0北" nameZh="四維一路" seqNo="18" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6246" longitude="120.3257" EXTVoiceNO="04077" />
+  <Stop Id="4078" routeId="0北" nameZh="凱旋醫院(民生醫院)" seqNo="19" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6241" longitude="120.3243" EXTVoiceNO="04017" />
+  <Stop Id="4079" routeId="0北" nameZh="長青服務中心" seqNo="20" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.623" longitude="120.3212" EXTVoiceNO="04079" />
+  <Stop Id="4080" routeId="0北" nameZh="廣東一街口" seqNo="21" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6226" longitude="120.3199" EXTVoiceNO="04080" />
+  <Stop Id="4081" routeId="0北" nameZh="光華路口" seqNo="22" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6218" longitude="120.3172" EXTVoiceNO="02712" />
+  <Stop Id="4082" routeId="0北" nameZh="復華中學" seqNo="23" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6206" longitude="120.3141" EXTVoiceNO="04082" />
+  <Stop Id="4083" routeId="0北" nameZh="市政大樓" seqNo="24" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.62" longitude="120.3116" EXTVoiceNO="01121" />
+  <Stop Id="4084" routeId="0北" nameZh="忠孝路口" seqNo="25" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6186" longitude="120.3081" EXTVoiceNO="00410" />
+  <Stop Id="4085" routeId="0北" nameZh="苓雅國中" seqNo="26" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6176" longitude="120.3051" EXTVoiceNO="01216" />
+  <Stop Id="4086" routeId="0北" nameZh="中華四路口" seqNo="27" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6166" longitude="120.3021" EXTVoiceNO="04086" />
+  <Stop Id="4087" routeId="0北" nameZh="自強三路口" seqNo="28" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6155" longitude="120.2988" EXTVoiceNO="04087" />
+  <Stop Id="1624" routeId="0北" nameZh="苓雅市場" seqNo="29" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.617" longitude="120.2968" EXTVoiceNO="01624" />
+  <Stop Id="1027" routeId="0北" nameZh="漢神百貨" seqNo="30" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6191" longitude="120.2959" EXTVoiceNO="01027" />
+  <Stop Id="0018" routeId="0北" nameZh="高雄女中" seqNo="31" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6206" longitude="120.2922" EXTVoiceNO="00018" />
+  <Stop Id="0019" routeId="0北" nameZh="大成街口(真愛碼頭)" seqNo="32" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6212" longitude="120.2885" EXTVoiceNO="00019" />
+  <Stop Id="0020" routeId="0北" nameZh="大智路口" seqNo="33" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6217" longitude="120.2874" EXTVoiceNO="00020" />
+  <Stop Id="0424" routeId="0北" nameZh="大智路" seqNo="34" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6235" longitude="120.2866" EXTVoiceNO="00424" />
+  <Stop Id="4002" routeId="0北" nameZh="捷運鹽埕埔站(大仁路)" seqNo="35" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6252" longitude="120.2854" EXTVoiceNO="04000" />
+  <Stop Id="0544" routeId="0北" nameZh="歷史博物館(高雄國際會議中心)" seqNo="36" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6262" longitude="120.2869" EXTVoiceNO="20906" />
+  <Stop Id="0545" routeId="0北" nameZh="台灣銀行" seqNo="37" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6277" longitude="120.2913" EXTVoiceNO="00545" />
 <Stop Id="0546" routeId="0北" nameZh="教育局(舊市議會)" seqNo="38" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6281" longitude="120.2932" EXTVoiceNO="21096" />
 <Stop Id="4055" routeId="0北" nameZh="六合二路口" seqNo="39" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6311" longitude="120.2953" EXTVoiceNO="04040" />
 <Stop Id="4056" routeId="0北" nameZh="七賢二路口" seqNo="40" pgp="0" terminal="0" districtId="1" GoBack="1" latitude="22.6333" longitude="120.2945" EXTVoiceNO="01525" />
