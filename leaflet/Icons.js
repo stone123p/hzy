@@ -51,8 +51,16 @@ L.marker(center)
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
 
+
 locations.forEach(function(loc){
   L.marker([loc.lat, loc.lng], {icon: loc.icon})
     .bindPopup(loc.text)
     .addTo(map);
 });
+
+$scope.routingControl =L.Routing.control({
+      waypoints: [
+          L.latLng(57.74, 11.94),
+          L.latLng(57.6792, 11.949)
+      ],
+}).addTo(map);
