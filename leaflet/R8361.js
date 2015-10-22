@@ -27,8 +27,8 @@ $.get(bus_stops_url, function(result){
     return str.split('_|')
       .map(function(latlngString){
         // 小心，高雄市公車很賊，經緯度故意弄反。
-        [lng, lat] = latlngString.split('_,');
-        return L.latLng(Number(lat), Number(lng));
+        var latlng = latlngString.split('_,');
+        return L.latLng(Number(latlng[1]), Number(latlng[0]));
       });
   };
 
