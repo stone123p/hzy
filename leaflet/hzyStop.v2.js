@@ -49,15 +49,59 @@ L.tileLayer(
 
 //-----------------------------------------------------
 
-//找出起點和終點附近的站牌 nearbyStops(stopDatas) return [{}...]
+//找出附近的站牌 getNearbyStops(stopDatas,latlng) return [{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
+var getNearbyStops = function(stopDatas,latlng){
+  var stopSet = new Set();
+  stopDatas.forEach(function(Data){
+    var stop_latlng = L.latLng(Number(Data.latitude), Number(Data.longitude));
+    if(Math.round(stop_latlng.distanceTo(latlng))<=distance){
+      stopSet.add(
+        {"routeId":Data.routeId,"nameZh":Data.nameZh,"seqNo":Data.seqNo,"GoBack":Data.GoBack,"latitude":Data.latitude,"longitude":Data.longitude}
+      );
+    }
+  });
+  return [...stopSet];
+};
+//找出有起點和終點共通路線 getComRuntes(stopsNearbyO,stopsNearbyD) return [routeId...]
+var getComRuntes = function(stopsNearbyO,stopsNearbyD){
+  var routeSet = new Set();
+  for(var i =0; i<stopsNearbyO.length;i++){
+    for(var j=0 ;j<stopsNearbyD.length;j++){
+      if(stopsNearbyO[i].routeId==stopsNearbyD[j].routeId){routeSet.add(stopsNearbyD[j].routeId)}
+    }
+  }
+  return [...routeSet];
+};
+//過濾出有共通路線之車站   filterStopsOfComRoutes(stopDatas,routeIds) return[{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
+var filterStopsOfComRoutes = function(stopDatas,routeIds){
+  return stopDatas.filter(function(data){
+    return routeIds.indexOf(data.routeId)!=-1;
+  });
+};
+//找出正確有方向的路線之站牌 getTureDirStops(stopDatasOfNearO,stopDatasOfNearD) return[{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
+var getTureDirStops = function(stopDatasOfNearO,stopDatasOfNearD){
+  var stopSet = new Set();
+  for(var i=0;i<stopDatasOfNearO.length;i++){
+    for(var j=0;j<stopDatasOfNearD.length;j++){
+      if(stopDatasOfNearO[i].GoBack==stopDatasOfNearD[j].GoBack &&
+         stopDatasOfNearO[i].routeId==stopDatasOfNearD[j].routeId &&
+         Number(stopDatasOfNearO[i].seqNo)<Number(stopDatasOfNearD[j].seqNo)){
+        stopSet.add(stopDatasOfNearO[i]);
+        stopSet.add(stopDatasOfNearD[j]);
+      }
+    }
+  }
+  return [...stopSet];
+};
 var drawStop = function(stopData){
   stopData.forEach(function(s){
-    if(! nameSet.has(s.nameZh) && false){
+    if(! nameSet.has(s.nameZh)){
         var popup = [
-        "<b>",
+        s.routeId,
+        "<br>",
         s.nameZh,
         "<br>",
-        s.GoBack,
+        (s.GoBack==1)?"去程":"回程",
       ].join('');
 
       L.marker([s.latitude, s.longitude], {icon: stopIcon})
@@ -66,8 +110,14 @@ var drawStop = function(stopData){
     }
   });
 };
-
+var r=[];
 $.get('./DownLoadSrc.xml', function(xml){ 
-  var json = $.xml2json(xml); 
-  drawStop(json.BusInfo.Stop); 
+  var json = $.xml2json(xml);
+  var stopsNearbyO =getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
+  var stopsNearbyD =getNearbyStops(json.BusInfo.Stop,[Dlat,Dlng]);
+  var UnionOfStops =stopsNearbyD.concat(stopsNearbyO);//終點和起點附近站牌做聯集
+  r=getComRuntes(stopsNearbyO,stopsNearbyD);
+  var stopsNearbyO2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,r),[Olat,Olng]);
+  var stopsNearbyD2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,r),[Dlat,Dlng]);
+  drawStop(getTureDirStops(stopsNearbyO2,stopsNearbyD2));
 });

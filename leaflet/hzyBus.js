@@ -36,10 +36,9 @@ map.on('locationfound',function(e){
      var busData = json.BusInfo.BusData;
 
      var filtered_busData = busData.filter(function(bus){
-     var bus_latlng = L.latLng(Number(bus.Latitude), Number(bus.Longitude));
-
-     bus.distance = Math.round(bus_latlng.distanceTo(e.latlng)); 
-      return bus.distance <= distance;
+        var bus_latlng = L.latLng(Number(bus.Latitude), Number(bus.Longitude));
+        bus.distance = Math.round(bus_latlng.distanceTo(e.latlng)); 
+        return bus.distance <= distance;
      });
      getRouteData(filtered_busData);
    }); 
