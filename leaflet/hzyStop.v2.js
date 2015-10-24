@@ -110,14 +110,12 @@ var drawStop = function(stopData){
     }
   });
 };
-var r=[];
 $.get('./DownLoadSrc.xml', function(xml){ 
   var json = $.xml2json(xml);
   var stopsNearbyO =getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
   var stopsNearbyD =getNearbyStops(json.BusInfo.Stop,[Dlat,Dlng]);
   var UnionOfStops =stopsNearbyD.concat(stopsNearbyO);//終點和起點附近站牌做聯集
-  r=getComRuntes(stopsNearbyO,stopsNearbyD);
-  var stopsNearbyO2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,r),[Olat,Olng]);
-  var stopsNearbyD2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,r),[Dlat,Dlng]);
+  var stopsNearbyO2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Olat,Olng]);
+  var stopsNearbyD2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Dlat,Dlng]);
   drawStop(getTureDirStops(stopsNearbyO2,stopsNearbyD2));
 });
