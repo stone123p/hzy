@@ -51,26 +51,26 @@ L.tileLayer(
 
 //找出附近的站牌 getNearbyStops(stopDatas,latlng) return [{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
 var getNearbyStops = function(stopDatas,latlng){
-  var stopSet = new Set();
+  var stops = [];
   stopDatas.forEach(function(Data){
     var stop_latlng = L.latLng(Number(Data.latitude), Number(Data.longitude));
     if(Math.round(stop_latlng.distanceTo(latlng))<=distance){
-      stopSet.add(
+      stops.push(
         {"routeId":Data.routeId,"nameZh":Data.nameZh,"seqNo":Data.seqNo,"GoBack":Data.GoBack,"latitude":Data.latitude,"longitude":Data.longitude}
       );
     }
   });
-  return [...stopSet];
+  return stops;
 };
 //找出有起點和終點共通路線 getComRuntes(stopsNearbyO,stopsNearbyD) return [routeId...]
 var getComRuntes = function(stopsNearbyO,stopsNearbyD){
-  var routeSet = new Set();
+  var routes = [];
   for(var i =0; i<stopsNearbyO.length;i++){
     for(var j=0 ;j<stopsNearbyD.length;j++){
-      if(stopsNearbyO[i].routeId==stopsNearbyD[j].routeId){routeSet.add(stopsNearbyD[j].routeId)}
+      if(stopsNearbyO[i].routeId==stopsNearbyD[j].routeId){routes.push(stopsNearbyD[j].routeId)}
     }
   }
-  return [...routeSet];
+  return routes;
 };
 //過濾出有共通路線之車站   filterStopsOfComRoutes(stopDatas,routeIds) return[{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
 var filterStopsOfComRoutes = function(stopDatas,routeIds){
@@ -80,18 +80,18 @@ var filterStopsOfComRoutes = function(stopDatas,routeIds){
 };
 //找出正確有方向的路線之站牌 getTureDirStops(stopDatasOfNearO,stopDatasOfNearD) return[{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
 var getTureDirStops = function(stopDatasOfNearO,stopDatasOfNearD){
-  var stopSet = new Set();
+  var stops = [];
   for(var i=0;i<stopDatasOfNearO.length;i++){
     for(var j=0;j<stopDatasOfNearD.length;j++){
       if(stopDatasOfNearO[i].GoBack==stopDatasOfNearD[j].GoBack &&
          stopDatasOfNearO[i].routeId==stopDatasOfNearD[j].routeId &&
          Number(stopDatasOfNearO[i].seqNo)<Number(stopDatasOfNearD[j].seqNo)){
-        stopSet.add(stopDatasOfNearO[i]);
-        stopSet.add(stopDatasOfNearD[j]);
+        stops.push(stopDatasOfNearO[i]);
+        stops.push(stopDatasOfNearD[j]);
       }
     }
   }
-  return [...stopSet];
+  return stops;
 };
 //畫站牌
 var drawStop = function(stopData){
