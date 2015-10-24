@@ -47,7 +47,7 @@ L.tileLayer(
   url_template 
 ).addTo(map);
 
-//-----------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //找出附近的站牌 getNearbyStops(stopDatas,latlng) return [{routeId,nameZh,seqNo,GoBack,latitude,longitude}...]
 var getNearbyStops = function(stopDatas,latlng){
@@ -93,6 +93,7 @@ var getTureDirStops = function(stopDatasOfNearO,stopDatasOfNearD){
   }
   return [...stopSet];
 };
+//畫站牌
 var drawStop = function(stopData){
   stopData.forEach(function(s){
     if(! nameSet.has(s.nameZh)){

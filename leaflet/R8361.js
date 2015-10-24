@@ -20,7 +20,6 @@ var my_marker = L.marker([lat, lng])
   .addTo(map)
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
   .openPopup();
-
 $.get(bus_stops_url, function(result){
   // toLatLngs 把字串，轉成一組經緯度。
   var toLatLngs = function(str){
