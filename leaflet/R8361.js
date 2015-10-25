@@ -1,6 +1,6 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
-var zoom_level = 15;  // 縮放層級
+var zoom_level = 14;  // 縮放層級
 var bus_stops_url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=8361"
 
 var school_latlng=L.latLng(lat, lng);   //<----- 學校的經緯度物件
@@ -22,7 +22,9 @@ var my_marker = L.marker([lat, lng])
   .openPopup();
 
 $.get(bus_stops_url, function(result){
+
   // toLatLngs 把字串，轉成一組經緯度。
+  /*
   var toLatLngs = function(str){
     return str.split('_|')
       .map(function(latlngString){
@@ -37,6 +39,14 @@ $.get(bus_stops_url, function(result){
   var polyline1 = L.polyline(toLatLngs(lines[0]),{color: 'red'}).addTo(map);
   var polyline2 = L.polyline(toLatLngs(lines[1]),{color: 'blue'}).addTo(map);
   map.fitBounds(polyline1.getBounds());
+  */
+
+  // 函數式的作法
+  result.split('_@').forEach(function(line, i){
+    L.polyline(line.split('_|').map(function(p){ 
+      return L.latLng(Number(p.split('_,')[1]), Number(p.split('_,')[0]));}), {color: ["red",  "blue"][i]
+    }).addTo(map);
+  });
 
 }); 
 
