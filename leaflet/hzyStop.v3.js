@@ -147,7 +147,7 @@ $.get('./DownLoadSrc.xml', function(xml){
   var stopsNearbyO = getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
   var stopsNearbyD = getNearbyStops(json.BusInfo.Stop,[Dlat,Dlng]);
   var UnionOfStops =stopsNearbyD.concat(stopsNearbyO);//終點和起點附近站牌做聯集
-  stopsNearbyO =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Olat,Olng]);
-  stopsNearbyD =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Dlat,Dlng]);
-  drawStop(getTureDirStops(stopsNearbyO,stopsNearbyD));
+  drawStop(getTureDirStops(getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Olat,Olng]),
+                           getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Dlat,Dlng])
+                           ));
 });
