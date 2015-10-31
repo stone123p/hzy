@@ -5,9 +5,10 @@ var Olat = 22.659620; // 起點經度
 var Olng = 120.31079; // 起點緯度
 
 var zoom_level = 13;  // 縮放層級
-var nameSet = new Set();
 var distance = 1000;
 
+var bus_stops_url = "http://122.146.229.210/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=";
+//http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/RealRoute.ashx?Type=GetGroupStop&Lang=Tw&Data=8361
 var stopIcon = L.icon({
     iconUrl: './imgs/busStop.png',
     iconSize:     [32, 37],
@@ -25,22 +26,12 @@ L.marker([Dlat, Dlng])
   .addTo(map)
   .bindPopup("終點")
 
-var circle = L.circle([Dlat, Dlng], distance, {
-        color: 'blue',
-          fillColor: '#f03',
-          fillOpacity: 0.5
-}).addTo(map);
 
 // 加入起點標示
 L.marker([Olat, Olng])
   .addTo(map)
   .bindPopup("起點")
 
-var circle = L.circle([Olat, Olng], distance, {
-      color: 'blue',
-          fillColor: '#f03',
-          fillOpacity: 0.5
-}).addTo(map);
 
 // 加入地圖的貼圖
 L.tileLayer(
@@ -93,32 +84,70 @@ var getTureDirStops = function(stopDatasOfNearO,stopDatasOfNearD){
   }
   return stops;
 };
-var stop ;
 //畫站牌
 var drawStop = function(stopData){
   stopData.forEach(function(s){
-    if(! nameSet.has(s.nameZh)){
-        var popup = [
-        s.routeId,
-        "<br>",
-        s.nameZh,
-        "<br>",
-        (s.GoBack==1)?"去程":"回程",
-      ].join('');
+    var popup = [
+      s.routeId,
+      "<br>",
+      s.nameZh,
+      "<br>",
+      (s.GoBack==1)?"去程":"回程",
+    ].join('');
 
-      stop = L.marker([s.latitude, s.longitude], {icon: stopIcon})
-        .addTo(map)
-        .bindPopup(popup);
+    stop = L.marker([s.latitude, s.longitude], {icon: stopIcon})
+      .addTo(map)
+      .bindPopup(popup);
 
-    }
+    stop.on('click', function(e){
+       drawRoute(s.routeId,s.GoBack);
+    });
   });
 };
+var drawRoute = function(routeId,GoBack){
+  $.get('http://ibus.tbkc.gov.tw/xmlbus/StaticData/GetRoute.xml', function(xml){ 
+    var routes = $.xml2json(xml).BusInfo.Route; 
+    var routeData = routes.filter(function(r){
+          return r.nameZh===routeId;
+        });
+    $.get(bus_stops_url+routeData[0].ID, function(result){
+    var toLatLngs = function(str){
+      return str.split('_|').map(function(latlngString){
+        var latlng = latlngString.split('_,');
+        return L.latLng(Number(latlng[1]), Number(latlng[0]));
+      });
+    };
+    clearMap();
+    var lines = result.split('_@');
+    var polyline1 = L.polyline(toLatLngs(lines[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map);//goBack=1
+  
+    /*  result.split('_@').forEach(function(line, i){
+        L.polyline(line.split('_|').map(function(p){ 
+          clearMap();
+          return L.latLng(Number(p.split('_,')[1]), Number(p.split('_,')[0]));}), {color: ["red",  "blue"][i]
+        }).addTo(map);
+      });*/
+    });
+  });
+};
+var clearMap =function(){
+  for(i in map._layers) {
+    if(map._layers[i]._path != undefined) {
+      try {
+       map.removeLayer(map._layers[i]);
+      }
+      catch(e) {
+        console.log("problem with " + e + map._layers[i]);
+      }
+    }
+  }
+}
 $.get('./DownLoadSrc.xml', function(xml){ 
   var json = $.xml2json(xml);
-  var stopsNearbyO =getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
-  var stopsNearbyD =getNearbyStops(json.BusInfo.Stop,[Dlat,Dlng]);
+  var stopsNearbyO = getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
+  var stopsNearbyD = getNearbyStops(json.BusInfo.Stop,[Dlat,Dlng]);
   var UnionOfStops =stopsNearbyD.concat(stopsNearbyO);//終點和起點附近站牌做聯集
-  var stopsNearbyO2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Olat,Olng]);
-  var stopsNearbyD2 =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Dlat,Dlng]);
-  drawStop(getTureDirStops(stopsNearbyO2,stopsNearbyD2));
+  stopsNearbyO =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Olat,Olng]);
+  stopsNearbyD =getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),[Dlat,Dlng]);
+  drawStop(getTureDirStops(stopsNearbyO,stopsNearbyD));
 });
