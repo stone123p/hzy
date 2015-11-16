@@ -1,0 +1,35 @@
+{
+  "name": "day6",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "browserify client/app.js > public/js/app.bundle.js",
+    "watch": "watchify client/app.js -o public/js/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.1",
+    "flux": "^2.0.3",
+    "react": "^0.13.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "envify": "^3.4.0",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.2.3"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify",
+      "uglifyify"
+    ]
+  }
+}

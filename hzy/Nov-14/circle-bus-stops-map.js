@@ -51,15 +51,13 @@ var showBusStops = function(loc, r){
       return loc.distanceTo(stopLoc) <= r;
     })
     .map(function(s){
-      /*
       var popup = [
         "<b>站牌: " + s.nameZh + "</b>",
         "路線: " + s.routeId,
         s.GoBack === '1'? "去程": "回程" 
       ].join('<br/>');
-      */
       return L.marker([s.latitude, s.longitude], {icon: stopIcon})
-       //       .bindPopup(popup)
+              .bindPopup(popup)
     })
     .forEach(function(s){
       bus_layer_group.addLayer(s);

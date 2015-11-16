@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <title>Minions</title>
+</head>
+<body id='body'>
+  <h1>小小兵 map方法</h1>
+  <script>
+    var body = document.getElementById('body');
+    var images_array = ['01.jpg', 'minions.jpg', '02.jpg', '03.jpg'];
+    var showImage = function(el){
+      var div = document.createElement('div');
+      var img = document.createElement('img');
+      var h5 = document.createElement('h5');
+      h5.innerHTML = el;
+      div.style.textAlign="center";
+      div.style.float="left";
+      img.src = './img/' + el;
+      div.appendChild(img);
+      div.appendChild(h5);
+      body.appendChild(div);
+    };
+
+    images_array.map(showImage);
+  </script>
+</body>
+</html>

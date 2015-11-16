@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>留言板</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+  <link href='./css/nav.css' rel='stylesheet' type='text/css'/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" 
+            type="button" 
+            aria-expanded='false'
+            aria-controls='navbar'
+            data-toggle="collapse"
+            data-target="#navbar-main">
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a class="navbar-brand" href='#'>留言板</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li><a href='#'>連結1</a></li>
+            <li><a href='#'>連結2</a></li>
+            <li><a href='#'>連結3</a></li>
+            <li><a href='#'>連結4</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+    <div class="jumbotron" id='app'>
+    </div> <!-- /jumbotron -->
+    <script>
+      var mockupData = [
+        {"id": "1", "author": "三頁書", "content": "世事如棋，乾坤莫測，笑盡英雄啊～～～～", "created_at": "Sat Jul 11 2015 22:44:59"},
+        {"id": "2", "author": "素還真", "content": "笨神笨聖亦笨仙，犬儒犬道嗜犬賢。", "created_at": "Sat Jul 11 2015 22:46:59"},
+        {"id": "3", "author": "葉小釵", "content": "啊～～～～啊～～～～啊～～～～", "created_at": "Sat Jul 11 2015 22:48:33"}
+      ];
+    </script>
+    <script src='./js/app.bundle.js'></script>
+  </div><!-- /container -->
+</body>
+</html>
