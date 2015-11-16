@@ -1,5 +1,5 @@
-var lat = 22.675067;  // 經度
-var lng = 120.285095; // 緯度
+var lat = 22.719078;  // 經度
+var lng = 120.298640; // 緯度
 var zoom_level = 16;  // 縮放層級
 var distance = 0.001;
 var offset = 0.0025;
@@ -19,6 +19,7 @@ L.tileLayer(
 L.marker([lat, lng])
   .addTo(map)
   .bindPopup("<b>大家好!</b><br />拎北在這啦.")
+<<<<<<< HEAD
   .openPopup()
   .on('click', function(e){
     console.log(e.latlng);
@@ -41,6 +42,9 @@ var polygon = L.polygon([
 circle.bindPopup("拎北圓仔啦");
 
 polygon.bindPopup("拎北角仔頭");
+=======
+  .openPopup();
+>>>>>>> c5a1b2a8f7fb80253dfbfe728fd6cecfa8a05220
 
 map.on('click', function(e){
   //alert('經緯度: ' + e.latlng);

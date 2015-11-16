@@ -1,10 +1,13 @@
 var lat = 22.675067;  // 經度
 var lng = 120.285095; // 緯度
 var zoom_level = 15;  // 縮放層級
+<<<<<<< HEAD
 
 var distance = 1000;                    //<----- 設定要過濾公車資料的距離
 
 var school_latlng=L.latLng(lat, lng);   //<----- 學校的經緯度物件
+=======
+>>>>>>> c5a1b2a8f7fb80253dfbfe728fd6cecfa8a05220
 
 var busIcon = L.icon({
     iconUrl: './imgs/bus.png',
