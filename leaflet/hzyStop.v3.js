@@ -1,8 +1,8 @@
 var Dlat = 22.675067;  // 終點經度
 var Dlng = 120.285095; // 終點緯度
 
-var Olat = 22.75914; // 起點經度
-var Olng = 120.30178; // 起點緯度
+var Olat = 22.67749; // 起點經度
+var Olng = 120.31605; // 起點緯度
 
 var zoom_level = 13;  // 縮放層級
 var distance = 1000;
@@ -20,6 +20,8 @@ var url_template = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
 
 // 設定地圖的視圖。經緯度及縮放層級
 var map = L.map('map').setView([Dlat, Dlng], zoom_level);
+
+var route_layer_group = L.layerGroup().addTo(map);
 
 // 加入終點標示
 L.marker([Dlat, Dlng])
@@ -117,10 +119,11 @@ var drawRoute = function(routeId,GoBack){
         return L.latLng(Number(latlng[1]), Number(latlng[0]));
       });
     };
-    clearMap();
+    //clearMap();
     //var lines = result.split('_@');
-    var polyline1 = L.polyline(toLatLngs(result.split('_@')[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map);//goBack=1
-  
+    //var polyline1 = L.polyline(toLatLngs(result.split('_@')[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map);//goBack=1
+    route_layer_group.clearLayers();
+    route_layer_group.addLayer(L.polyline(toLatLngs(result.split('_@')[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map)); 
     /*  result.split('_@').forEach(function(line, i){
         L.polyline(line.split('_|').map(function(p){ 
           clearMap();
@@ -130,18 +133,6 @@ var drawRoute = function(routeId,GoBack){
     });
   });
 };
-var clearMap =function(){
-  for(i in map._layers) {
-    if(map._layers[i]._path != undefined) {
-      try {
-       map.removeLayer(map._layers[i]);
-      }
-      catch(e) {
-        console.log("problem with " + e + map._layers[i]);
-      }
-    }
-  }
-}
 $.get('./DownLoadSrc.xml', function(xml){ 
   var json = $.xml2json(xml);
   var stopsNearbyO = getNearbyStops(json.BusInfo.Stop,[Olat,Olng]);
