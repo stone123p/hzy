@@ -1,8 +1,8 @@
 var Dlat = 22.675067;  // 終點經度
 var Dlng = 120.285095; // 終點緯度
 
-var Olat = 22.659620; // 起點經度
-var Olng = 120.31079; // 起點緯度
+var Olat = 22.75914; // 起點經度
+var Olng = 120.30178; // 起點緯度
 
 var zoom_level = 13;  // 縮放層級
 var distance = 1000;
@@ -118,8 +118,8 @@ var drawRoute = function(routeId,GoBack){
       });
     };
     clearMap();
-    var lines = result.split('_@');
-    var polyline1 = L.polyline(toLatLngs(lines[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map);//goBack=1
+    //var lines = result.split('_@');
+    var polyline1 = L.polyline(toLatLngs(result.split('_@')[(GoBack==1)?0:1]),{color: (GoBack==1)?'blue':'red'}).addTo(map);//goBack=1
   
     /*  result.split('_@').forEach(function(line, i){
         L.polyline(line.split('_|').map(function(p){ 
