@@ -1,0 +1,16 @@
+{
+  "name": "bus-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chi-Ren Hwang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "parse5": "^2.0.0",
+    "xml2json": "^0.9.0"
+  }
+}
