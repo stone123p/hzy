@@ -4,12 +4,30 @@ var parser = require('xml2json');
 
 var app = express();
 
+var route_polyline_url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=8361";
+
+var buses_url = 'http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml';
+
+app.get("/buses", function(req, res){
+  http.get(buses_url, function(response){
+    var completeResponse = '';
+
+    response.on('data', function(chunk){
+      completeResponse += chunk;
+    });
+
+    response.on('end', function(){
+      var result = completeResponse;
+      console.log(result);
+      res.send(result);
+    });
+  });
+}).on('error', function(e) {
+    console.log("Got error: " + e.message);
+});
+
 app.get("/", function (req, res) {
 
-  var options = {
-    hostname: "ibus.tbkc.gov.tw",
-    path: '/xmlbus/GetBusData.xml'
-  };
   //var url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=8361";
   var url = 'http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml';
   //var gsaReq = http.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function (response) {
