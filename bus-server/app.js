@@ -1,15 +1,14 @@
 var http = require('http');
 var express = require('express');
-var parser = require('xml2json');
 
 var app = express();
 
-var route_polyline_url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=8361";
+var route_polyline_url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=";
 
-var buses_url = 'http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml';
+app.use(express.static('public'));
 
-app.get("/buses", function(req, res){
-  http.get(buses_url, function(response){
+app.get("/route/polyline/:id", function(req, res){
+  http.get(route_polyline_url + req.params.id, function(response){
     var completeResponse = '';
 
     response.on('data', function(chunk){
@@ -17,40 +16,33 @@ app.get("/buses", function(req, res){
     });
 
     response.on('end', function(){
-      var result = completeResponse;
-      console.log(result);
-      res.send(result);
+      //var result = completeResponse; // 一個字串
+      //var result = completeResponse.split('_@'); // 由兩個字串組成的陣列
+
+      /* 
+       * 兩條線組成一陣列。
+       * 每條線為經緯度所組成的陣列。
+       * 經緯度仍為字串。
+      var result = completeResponse.split('_@').map(function(line){
+        return line.split('_|');
+      });
+       */
+      
+      // 進一步把每個經緯度分成 {lat: xxxx, lng: yyyy}
+      var result = completeResponse.split('_@').map(function(line){
+        return line.split('_|').map(function(latlng){
+          return {lat: Number(latlng.split('_,')[1]), lng: Number(latlng.split('_,')[0])};
+        });
+      });
+
+      res.json(result); // 直接輸出 json 物件
     });
-  });
-}).on('error', function(e) {
-    console.log("Got error: " + e.message);
-});
-
-app.get("/", function (req, res) {
-
-  //var url = "http://ibus.tbkc.gov.tw/bus/RealRoute/ashx/GetPolyLine.ashx?Type=GetLine&Plang=zh_tw&Data=8361";
-  var url = 'http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml';
-  //var gsaReq = http.get('http://ibus.tbkc.gov.tw/xmlbus/GetBusData.xml', function (response) {
-  var gsaReq = http.get(url, function (response) {
-    var completeResponse = '';
-      response.on('data', function (chunk) {
-        completeResponse += chunk;
-      });
-      response.on('end', function() {
-//        result = parser.toJson(completeResponse);
-        var result = completeResponse;
-        res.json(result);
-        /*
-        var busData = JSON.parse(result).BusDynInfo.BusInfo.BusData;
-        console.log(busData);
-        res.json(busData);
-        */
-      })
-      response.on('error', function (e) {
-        console.log('problem with request: ' + e.message);
-      });
+  }).on('error', function(err){
+    console.log('Got error', err.message);
+    res.send("error: " + err.message);
   });
 });
+
 
 app.listen(3000);
 
