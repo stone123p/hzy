@@ -3,7 +3,7 @@ var lng = 120.285095;
 var zoom_level = 14;
 
 //var route_polyline_url = "/route/polyline";
-var route_polyline_url = "/route/polyline/92";
+var route_polyline_url = "/route/polyline/8361";
 
 var school_latlng=L.latLng(lat, lng);
 
@@ -16,11 +16,16 @@ L.tileLayer(
 ).addTo(map);
 
 $.get(route_polyline_url, function(result){
-  result.split('_@').forEach(function(line, i){
-    L.polyline(line.split('_|').map(function(p){ 
-      return L.latLng(Number(p.split('_,')[1]), Number(p.split('_,')[0]));}), {color: ["red",  "blue"][i]
-    }).addTo(map);
-  });
+  var line1 = L.polyline(
+    result[0].map(function(obj){ return L.latLng(obj.lat, obj.lng);}),
+    {color: 'red'}
+    ).addTo(map);;
+
+  var line2 = L.polyline(
+    result[1].map(function(obj){ return L.latLng(obj.lat, obj.lng);}),
+    {color: 'blue'}
+    ).addTo(map);;
+  map.fitBounds(line1.getBounds());
 
 }); 
 
