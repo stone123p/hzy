@@ -27,14 +27,15 @@ app.get("/route/polyline/:id", function(req, res){
         return line.split('_|');
       });
        */
-
+      
+      // 進一步把每個經緯度分成 {lat: xxxx, lng: yyyy}
       var result = completeResponse.split('_@').map(function(line){
         return line.split('_|').map(function(latlng){
-          return({
+          return {lat: Number(latlng.split('_,')[1]), lng: Number(latlng.split('_,')[0])};
         });
       });
 
-      res.send(result);
+      res.json(result); // 直接輸出 json 物件
     });
   }).on('error', function(err){
     console.log('Got error', err.message);
