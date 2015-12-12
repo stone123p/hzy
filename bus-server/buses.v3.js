@@ -31,7 +31,6 @@ app.get("/buses", function(req, res){
       var result = JSON.parse(parser.toJson(completeResponse)).BusDynInfo; //xml 轉成 json 字串，再轉成json物件
       console.log(typeof(result));
       */
-
       var result = JSON.parse(parser.toJson(completeResponse)).BusDynInfo.BusInfo.BusData; 
       console.log(typeof(result));
       res.json(result);
