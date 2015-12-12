@@ -196,14 +196,7 @@ var drawBus = function(busData,busId){
   bus_layer_group.addLayer( L.marker([b.Latitude, b.Longitude], {icon: busIcon}).bindPopup(popup));
   });
 };
-var main = function(O,D){
-  $.get('./DownLoadSrc.xml', function(xml){ 
-    var json = $.xml2json(xml);
-    var stopsNearbyO = getNearbyStops(json.BusInfo.Stop,O);
-    var stopsNearbyD = getNearbyStops(json.BusInfo.Stop,D);
-    var UnionOfStops =stopsNearbyD.concat(stopsNearbyO);//終點和起點附近站牌做聯集
-    drawStop(getTureDirStops(getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),Olatlng),
-                             getNearbyStops(filterStopsOfComRoutes(UnionOfStops,getComRuntes(stopsNearbyO,stopsNearbyD)),Dlatlng)
-                             ));
+var s;
+  $.getJSON('./DownLoadSrc.js',function(data){
+    alert(data); 
   });
-};
