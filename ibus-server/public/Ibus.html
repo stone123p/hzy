@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>公車即時路線規劃</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+  <script src = "https://code.jquery.com/jquery-1.10.2.js" ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src='./jquery.xml2json.js'></script>
+</head>
+  <body>
+    <div id="map" style="width: 900px; height: 740px; float:left;"></div>
+    <div id="leftcol" style="float:left;">
+      <div id= "input">
+        <div id="starInput">
+          <label for="o">起點：</label>
+          <input id="o" type="text"style="font-size:16px" size="40" value=""></input>
+        </div>
+        <div id="disInput">
+          <label for="d">終點：</label>
+          <input id="d" type="text"style="font-size:16px" size="40" value=""></input>
+        </div>
+      </div>
+      <div style="Margin:10px">
+        <button onclick="switchPosition()" id="switch" style="width:100px;height:30px;" type="button">交換</button>
+        <button  id="setPosi" style="width:100px;height:30px;" type="button">查詢</button>
+        <div style="overflow: auto; height: 70px; border: 1px silver solid;Margin:10px">
+          <table id="List" style="border:3px #FFAA11 solid;padding:3px;width:100%;" rules="all" cellpadding='5';>
+            <thead>
+              <tr>
+                <td>路線名稱</td> 
+                <td>選擇</td>
+              </tr>
+            </thead>
+            <tbody id="routeList">
+            </tbody>
+          </table>  
+        </div>  
+        <div style="overflow: auto; height: 570px; border: 1px silver solid;Margin:10px">
+        <table id="busComelist" style="border:3px #FFAA11 solid;padding:3px;width:100%;" rules="all" cellpadding='5';>
+          <thead>
+            <tr>
+              <td>站序</td>
+              <td>站牌名稱</td> 
+              <td>站牌代碼</td>
+              <td>預估到站時間</td>
+            </tr>
+          </thead>
+          <tbody id="busComeTime">
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <script src='./Ibus.js'></script>
+  </body>
+</html>
